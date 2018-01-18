@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Validation de commande</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+
+	<ui:insert name="page">
+		<!-- insérer concrètement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAccueil.xhtml"></ui:include>
+	</ui:insert>
+
+	<div class="cadre">
+		<h3>Déjà Client ?</h3>
+
+		<h:form>
+			<center>
+				<h:panelGrid columns="2" style="margin-top:50px">
+					Mail :
+					<h:inputText value="#{clientMB.client.email}"
+						style="width:200px;height:30px; backgroung-border:silver" />
+					Mot de passe :
+					<h:inputSecret value="#{clientMB.client.mdp}"
+						style="width:200px;height:30px; backgroung-border:silver" />
+
+					<p:spacer height="50" />
+					<p:commandButton
+						style="background-color:dodgerblue;backgroung-border:dodgerblue; width:150px;height:35px"
+						value="Connexion" action="#{clientMB.seConnecter}" update="@all" />
+				</h:panelGrid>
+			</center>
+
+		</h:form>
+		<h:messages style="color:red" />
+
+	</div>
+	
+	
+	<div class="cadre">
+		<h3>Nouveau Client ?</h3>
+
+		<h:form>
+			<center>
+				<h:panelGrid columns="2">
+					Nom : <h:inputText value="#{clientMB.client.nomClient}" />
+					Mail : <h:inputText value="#{clientMB.client.email}" />
+
+					Mot de passe :
+					<h:inputText value="#{clientMB.client.mdp}" />
+					Adresse :
+					<h:inputText value="#{clientMB.client.adresse}" />
+
+					N° Telephone :
+					<h:inputText value="#{clientMB.client.tel}" />
+
+
+					<p:spacer height="50" />
+
+					<p:commandButton
+						style="margin-left:70px;background-color:red;border-color:red;color:gold;width:100px;height:30px"
+						value="S'inscrire" action="#{clientMB.ajouterClient}" />
+
+				</h:panelGrid>
+				<br />
+			</center>
+		</h:form>
+
+	</div>
+
+</h:body>
+</html>

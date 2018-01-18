@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Inscription client</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+<body>
+
+<!-- insertion du header -->
+	<ui:insert name="page">
+		<!-- insérer concrètement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAccueil.xhtml"></ui:include>
+	</ui:insert>
+
+<h:form>
+		<h:panelGrid columns="1" style="margin-left:550px">
+
+			<h:outputText value="Nom:" />
+						<p:inputText id="idNom" label="Nom" value="#{clientMB.client.nomClient}"
+							required="true" placeholder="Nom" />
+						<h:message for="idNom" />
+					
+				<br />
+
+				
+						<h:outputText value="Mail:" />
+						<p:inputText id="idMail" label="Mail"
+							value="#{clientMB.client.email}" required="true" placeholder="Mail" />
+							
+						<h:message for="idMail" />
+
+					
+				
+				<br />
+				
+					<h:outputText value="Mot de passe:" />
+						<p:inputText id="idMdp" label="Mdp"
+							value="#{clientMB.client.mdp}" required="true" placeholder="Mot de passe" />
+						<h:message for="idMdp" />
+				
+				<br/>
+				
+						<h:outputText value="Adresse:" />
+						<p:inputText id="idAdresse" label="Adresse"
+							value="#{clientMB.client.adresse}" required="true"
+							placeholder="Adresse" />
+						<h:message for="idAdresse" />
+
+					
+				<br />
+				
+				<br />
+				
+				<br />
+				
+				<h:outputText value="N° de téléphone:" />
+						<p:inputText id="idTel" label="Tel" value="#{cMB.client.tel}"
+							required="true" placeholder="Tel" />
+						<h:message for="idTel" />
+
+				
+				<br />
+
+
+			</div>
+			<p:commandButton
+				style="margin-left:70px;background-color:red;border-color:red;color:gold;width:100px;height:30px"
+				value="Ajouter" action="#{clientMB.ajouterClient}" />
+		</h:panelGrid>
+	</h:form>
+
+
+</body>
+</html>

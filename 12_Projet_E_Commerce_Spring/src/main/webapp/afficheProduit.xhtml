@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Affichage produits par catégorie</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+	<ui:insert name="page">
+		<!-- insérer concrètement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAdmin.xhtml"></ui:include>
+	</ui:insert>
+	
+	<div class="cadre">
+	<h1 style="text-align: center; color: black">Formulaire de consultation d'un
+		produit</h1>
+		<h2 style="text-align: center">Veuillez chercher le produit par son nom ou son ID</h2>
+	<h:form>
+	<center>
+	<h:panelGrid columns="2">
+		ID produit :
+		<p:inputText value="#{pMB.produit.idProduit}"/>
+
+		Designation :
+		<p:inputText value="#{pMB.produit.designation}"/>
+
+		<h:commandButton
+			style="background-color:dodgerblue;backgroung-border:dodgerblue; width:150px;height:35px"
+			value="Afficher" action="#{pMB.afficherProduit}" />
+			</h:panelGrid>
+			</center>
+	</h:form>
+	</div>
+
+	
+	<h:form>
+			<p:dataTable var="pdt" value="#{sessionScope.produit}">
+				<f:facet name="header">
+            Produit
+        </f:facet>
+				<p:column style="width:16px">
+					<p:rowToggler />
+				</p:column>
+				<p:column headerText="Id">
+					<h:outputText value="#{pdt.idProduit}" />
+				</p:column>
+				<p:column headerText="Designation">
+					<h:outputText value="#{pdt.designation}" />
+				</p:column>
+
+				<p:rowExpansion>
+					<p:panelGrid columns="2" columnClasses="label,value"
+						style="width:300px">
+						<f:facet name="header">
+							<h:graphicImage value="#{pdt.image}" />
+						</f:facet>
+
+						<h:outputText value="Id:" />
+						<h:outputText value="#{pdt.idProduit}" />
+
+						<h:outputText value="Designation:" />
+						<h:outputText value="#{pdt.designation}" />
+
+						<h:outputText value="Description:" />
+						<h:outputText value="#{pdt.description}"/>
+						
+						<h:outputText value="Prix:" />
+						<h:outputText value="#{pdt.prix}"/>
+						
+						<h:outputText value="Remise:" />
+						<h:outputText value="#{pdt.remise}"/>
+
+					</p:panelGrid>
+				</p:rowExpansion>
+			</p:dataTable>
+		</h:form>
+
+
+
+</h:body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+	<title>Page login</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+<h:body>
+
+	<div class="cadre">
+		<h1 style="color: black; text-align: center">Formulaire de
+			connexion</h1>
+
+		<h:form>
+			<center>
+				<h:panelGrid columns="2" style="margin-top:50px">
+					<h:outputText value="Mail" style="font:30px"></h:outputText>
+					<h:inputText value="#{aMB.admin.mail}"
+						style="width:200px;height:30px; backgroung-border:silver" />
+					<h:outputText value="Mot de passe" style="size:30px"></h:outputText>
+					<h:inputSecret value="#{aMB.admin.mdp}"
+						style="width:200px;height:30px; backgroung-border:silver" />
+
+					<p:spacer height="50" />
+					<p:commandButton
+						style="background-color:dodgerblue;backgroung-border:dodgerblue; width:150px;height:35px"
+						value="Connexion" action="#{aMB.seConnecter}" update="@all" />
+				</h:panelGrid>
+			</center>
+
+			<h:messages style="color:red" />
+
+		</h:form>
+
+	</div>
+
+</h:body>
+</html>

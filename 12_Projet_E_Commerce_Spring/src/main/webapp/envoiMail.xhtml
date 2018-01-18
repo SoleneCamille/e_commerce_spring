@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Envoi commande par mail</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+	<ui:insert name="page">
+		<!-- insérer concrètement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAccueil.xhtml"></ui:include>
+	</ui:insert>
+
+	<div class="cadre">
+		<h1 style="text-align: center; color: black">Récapitulatif de
+			votre commande :</h1>
+	</div>
+
+	
+		<p:dataTable var="ligne" value="#{lMB.listeLignes}">
+			<p:column headerText="Produit">
+				<h:outputText value="#{ligne.produit.designation}" />
+			</p:column>
+
+			<p:column headerText="Description">
+				<h:outputText value="#{ligne.produit.description}" />
+			</p:column>
+
+			<p:column headerText="Prix Unitaire">
+				<h:outputText value="#{ligne.produit.prix}" />
+			</p:column>
+
+			<p:column headerText="Remise">
+				<h:outputText value="#{ligne.produit.remise}" />
+			</p:column>
+
+
+			<p:column headerText="Quantité">
+				<h:outputText value="#{ligne.quantite}" />
+			</p:column>
+<p:column headerText="Prix total avant remise">
+				<h:outputText value="#{ligne.prixAvantRemise}" />
+			</p:column>
+
+			<p:column headerText="Prix total après remise">
+				<h:outputText value="#{ligne.prix}" />
+			</p:column>
+
+
+		</p:dataTable>
+		<br />
+		<br />
+		
+		
+		<br/>	
+		<br/>	
+		<br/>	
+		
+	<div>
+	
+	<h:form>
+		
+		<p:commandButton value="Envoi récapitulatif commande par mail"
+			action="#{clientMB.envoiMail()}" 
+			style="background-color:dodgerblue;backgroung-border:dodgerblue" />
+		</h:form>
+		</div>
+		
+		
+		
+
+</h:body>
+</html>

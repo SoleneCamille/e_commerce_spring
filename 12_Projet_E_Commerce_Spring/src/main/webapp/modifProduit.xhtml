@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Page de modification de produit</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+
+	<!-- insertion du header -->
+	<ui:insert name="page">
+		<!-- inserer concretement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAdmin.xhtml"></ui:include>
+	</ui:insert>
+
+	<div class="cadre">
+		<h1 style="text-align: center; color: black">Formulaire de
+			modification de produit</h1>
+
+
+		<h:form>
+			<center>
+				<h:panelGrid columns="2">
+			
+					ID Categorie
+        			<p:inputText value="#{pMB.categorie.idCategorie}" />
+			
+					ID Produit :
+ 					<p:inputText value="#{pMB.produit.idProduit}"/>
+
+
+					Designation :
+					<p:inputText value="#{pMB.produit.designation}" />
+
+					Description :
+					<p:inputText value="#{pMB.produit.description}" />
+
+					Prix :
+					<p:inputText value="#{pMB.produit.prix}" />
+
+					Stock :
+					<p:inputText value="#{pMB.produit.quantite}" />
+
+					Remise :
+					<p:inputText value="#{pMB.produit.remise}" />
+					
+					
+					Photo :
+					<p:fileUpload fileUploadListener="#{pMB.upload}" mode="advanced"
+					auto="true" update="idImg" style="width:135px" />
+				<h:graphicImage id="idImg" value="#{pMB.image}" />
+
+					<p:commandButton value="Modifier" action="#{pMB.modifierProduit}"
+						update="msgMod" />
+				</h:panelGrid>
+			</center>
+		</h:form>
+
+
+
+
+		<h:messages id="msgMod" />
+	</div>
+
+</h:body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Page d'ajout de categorie</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+
+	<!-- insertion du header -->
+	<ui:insert name="page">
+		<!-- inserer concretement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAdmin.xhtml"></ui:include>
+	</ui:insert>
+
+	<div class="cadre">
+		<h1 style="text-align: center; color: black">Formulaire d'ajout de
+			categorie</h1>
+
+
+		<h:form enctype="multipart/form-data">
+			<center>
+				<h:panelGrid columns="2">
+			Nom de la Categorie : <h:inputText
+						value="#{catMB.categorie.nomCategorie}" />
+			Description : <h:inputText value="#{catMB.categorie.description}" />
+				</h:panelGrid>
+				Photo : <p:fileUpload fileUploadListener="#{catMB.upload}" mode="advanced"
+					auto="true" update="idImg" style="width:135px"/>
+				<h:graphicImage id="idImg" value="#{catMB.image}" />
+				<p:commandButton value="Ajouter" action="#{catMB.ajouterCategorie}"
+					update="msgAj" />
+
+<br/>
+			</center>
+		</h:form>
+
+
+		<h:messages id="msgAj" />
+	</div>
+</h:body>
+</html>

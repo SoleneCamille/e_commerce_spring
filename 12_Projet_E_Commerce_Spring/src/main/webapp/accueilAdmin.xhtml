@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Page d'accueil Admin</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+	<!-- insertion du header -->
+	<ui:insert name="page">
+		<!-- insérer concrètement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAdmin.xhtml"></ui:include>
+	</ui:insert>
+
+	<h:form id="form">
+		<p:dataGrid var="cat" value="#{sessionScope.categoriesList}"
+			columns="2" layout="grid" rows="16" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+			<f:facet name="header">
+            Categories
+        </f:facet>
+
+			<p:panel header="#{cat.idCategorie}" style="text-align:center">
+				<h:panelGrid columns="2" style="width:300px"
+					columnClasses="logo,detail">
+					<h:graphicImage value="#{cat.image}" />
+
+					<p:outputPanel>
+						<h:panelGrid columns="2" cellpadding="2">
+							<h:outputText value="Nom:" />
+							<h:outputText value="#{cat.nomCategorie}"
+								style="font-weight: bold" />
+
+							<h:outputText value="Description:" />
+							<h:outputText value="#{cat.description}"
+								style="font-weight: bold" />
+						</h:panelGrid>
+					</p:outputPanel>
+				</h:panelGrid>
+			</p:panel>
+		</p:dataGrid>
+	</h:form>
+
+
+
+</h:body>
+</html>

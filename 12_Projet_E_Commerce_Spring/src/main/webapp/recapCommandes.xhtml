@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Paiement</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+
+	<div class="cadre">
+		<h1 style="text-align: center; color: black">Récapitulatif de vos commandes :</h1>
+	</div>
+
+
+	<p:dataTable var="com" value="#{sessionScope.comListe}">
+		<p:column headerText="ID">
+			<h:outputText value="#{com.idCommande}" />
+		</p:column>
+
+		<p:column headerText="Total avant remise">
+			<h:outputText value="#{com.prixAvant}" />
+		</p:column>
+
+		<p:column headerText="Total après remise">
+			<h:outputText value="#{com.prixApres}" />
+		</p:column>
+		
+		<p:column headerText="Détail de la commande">
+		<h:form>
+			<p:commandButton value="Voir"
+				action="#{clientMB.afficherDetail}"
+				style="background-color:dodgerblue;backgroung-border:dodgerblue">
+				<f:setPropertyActionListener value="#{com}"
+							target="#{clientMB.commande}" />
+				</p:commandButton>
+				</h:form>
+		</p:column>
+
+	</p:dataTable>
+	<br />
+	<br />
+
+
+</h:body>
+</html>

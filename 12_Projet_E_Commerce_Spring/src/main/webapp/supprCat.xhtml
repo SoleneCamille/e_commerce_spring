@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Page de suppression de categorie</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+
+	<!-- insertion du header -->
+	<ui:insert name="page">
+		<!-- inserer concretement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAdmin.xhtml"></ui:include>
+	</ui:insert>
+
+	<div class="cadre">
+		<h1 style="text-align: center; color: black">Formulaire de
+			suppression de categorie</h1>
+
+
+		<h:form>
+			<center>
+				<h:panelGrid columns="2">
+			ID de la categorie : <h:inputText
+						value="#{catMB.categorie.idCategorie}" />
+				</h:panelGrid>
+				<p:commandButton value="Supprimer"
+					action="#{catMB.supprimerCategorie}" update="msgSuppr" />
+
+			</center>
+		</h:form>
+
+
+		<h:messages id="msgSuppr" />
+
+	</div>
+
+</h:body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Produits d'une catégorie</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+	<!-- insertion du header -->
+	<ui:insert name="page">
+		<!-- insérer concrètement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAccueil.xhtml"></ui:include>
+	</ui:insert>
+
+
+	<h:form id="form">
+		<p:dataGrid var="pdt" value="#{sessionScope.listeProduits}"
+			columns="2" layout="grid" rows="16" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+			<f:facet name="header">
+           Produits
+        </f:facet>
+
+			<p:panel header="#{pdt.idProduit}" style="text-align:center">
+				<h:panelGrid columns="2" style="width:300px"
+					columnClasses="logo,detail">
+
+					<h:graphicImage value="#{pdt.image}" />
+
+					<p:outputPanel>
+						<h:panelGrid columns="2" cellpadding="2">
+							<h:outputText value="Nom:" />
+							<h:outputText value="#{pdt.designation}"
+								style="font-weight: bold" />
+							<h:outputText value="Description:" />
+							<h:outputText value="#{pdt.description}"
+								style="font-weight: bold" />
+
+							<h:outputText value="Prix:" />
+							<h:outputText value="#{pdt.prix}" style="font-weight: bold" />
+							<h:outputText value="Remise:" />
+							<h:outputText value="#{pdt.remise}" style="font-weight: bold" />
+							<h:outputText value="Stock:" />
+							<h:outputText value="#{pdt.quantite}" style="font-weight: bold" />
+							
+							<p:commandButton value="Ajouter au panier"
+								action="#{lMB.ajouterLigne}">
+								<f:setPropertyActionListener value="#{pdt}"
+									target="#{lMB.produit}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</p:outputPanel>
+				</h:panelGrid>
+			</p:panel>
+		</p:dataGrid>
+	</h:form>
+
+
+</h:body>
+</html>

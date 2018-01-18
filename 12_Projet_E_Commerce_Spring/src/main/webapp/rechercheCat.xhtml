@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Page de consultation d'une categorie</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+
+	<!-- insertion du header -->
+	<ui:insert name="page">
+		<!-- inserer concretement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAdmin.xhtml"></ui:include>
+	</ui:insert>
+<div class="cadre">
+	<h1 style="text-align: center; color: black">Formulaire de
+		consultation de categorie</h1>
+
+	<h2>Veuillez entrez l'ID ou le nom de la categorie que vous
+		souhaitez consulter</h2>
+
+	
+		<h:form>
+		<center>
+			<h:panelGrid columns="2" >
+			ID de la categorie : <h:inputText
+					value="#{catMB.categorie.idCategorie}" />
+			Nom de la categorie : <h:inputText
+					value="#{catMB.categorie.nomCategorie}" />
+			</h:panelGrid>
+			<p:spacer height="10" />
+			<p:commandButton value="Consulter Catégorie"
+				action="#{catMB.consulterCategorie}" update="@all"  style="background-color:dodgerblue;backgroung-border:dodgerblue"/>
+			</center>	
+		</h:form>
+		
+		</div>
+
+	<h:form>
+			<p:dataTable var="cat" value="#{sessionScope.categ}">
+				<f:facet name="header">
+            Categorie
+        </f:facet>
+				<p:column style="width:16px">
+					<p:rowToggler />
+				</p:column>
+				<p:column headerText="Id">
+					<h:outputText value="#{cat.idCategorie}" />
+				</p:column>
+				<p:column headerText="Nom">
+					<h:outputText value="#{cat.nomCategorie}" />
+				</p:column>
+
+				<p:rowExpansion>
+					<p:panelGrid columns="2" columnClasses="label,value"
+						style="width:300px">
+						<f:facet name="header">
+							<h:graphicImage value="#{cat.image}" />
+						</f:facet>
+
+						<h:outputText value="Id:" />
+						<h:outputText value="#{cat.idCategorie}" />
+
+						<h:outputText value="Nom:" />
+						<h:outputText value="#{cat.nomCategorie}" />
+
+						<h:outputText value="Description:" />
+						<h:outputText value="#{cat.description}"/>
+
+					</p:panelGrid>
+				</p:rowExpansion>
+			</p:dataTable>
+		</h:form>
+		
+		<h:form>
+			<p:dataTable var="p" value="#{sessionScope.listeProd2}">
+				<f:facet name="header">
+            Liste des produits de la categorie
+        </f:facet>
+				<p:column style="width:16px">
+					<p:rowToggler />
+				</p:column>
+				<p:column headerText="Id">
+					<h:outputText value="#{p.idProduit}" />
+				</p:column>
+				<p:column headerText="Designation:">
+					<h:outputText value="#{p.designation}" />
+				</p:column>
+
+				<p:rowExpansion>
+					<p:panelGrid columns="2" columnClasses="label,value"
+						style="width:300px">
+						<f:facet name="header">
+							<h:graphicImage value="#{p.image}" />
+						</f:facet>
+
+						<h:outputText value="Id:" />
+						<h:outputText value="#{p.idProduit}" />
+
+						<h:outputText value="Designation:" />
+						<h:outputText value="#{p.designation}" />
+
+						<h:outputText value="Description:" />
+						<h:outputText value="#{p.description}"/>
+						
+						<h:outputText value="Prix:" />
+						<h:outputText value="#{p.prix}"/>
+						
+						<h:outputText value="Remise:" />
+						<h:outputText value="#{p.remise}"/>
+						
+						<h:outputText value="Quantite:" />
+						<h:outputText value="#{p.quantite}"/>
+
+					</p:panelGrid>
+				</p:rowExpansion>
+			</p:dataTable>
+		</h:form>
+	
+	<h:messages/>
+
+</h:body>
+</html>

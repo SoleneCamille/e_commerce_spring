@@ -176,10 +176,10 @@ public class CategorieManagedBean implements Serializable {
 //			// récupération de la liste des produits de cette categorie
 //			listeProduits = catOut.getListeProduits();
 //
-//			// supprimer les produits de cette categorie
-//			for (Produit p : listeProduits) {
-//				produitService.deleteProduit(p.getIdProduit());
-//			}
+////			// supprimer les produits de cette categorie
+////			for (Produit p : listeProduits) {
+////				produitService.deleteProduit(p.getIdProduit());
+////			}
 //
 //			// supprimer la categorie
 //			categorieService.deleteCategorie(catOut.getIdCategorie());

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Page de validation de panier</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+
+	<ui:insert name="page">
+		<!-- insérer concrètement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAccueil.xhtml"></ui:include>
+	</ui:insert>
+
+	<div class="cadre">
+
+		<h:form>
+			<center>
+				<h:panelGrid columns="2">
+		Prix total avant remise :
+		<h:outputText value="#{sessionScope.com.prixAvant}" />
+
+					<br />
+
+		Prix total après remise :
+		<h:outputText value="#{sessionScope.com.prixApres}" />
+
+				</h:panelGrid>
+			</center>
+		</h:form>
+	</div>
+
+	<h:form>
+		<p:commandButton value="Continuer mes achats" action="accueil.xhtml"
+			update="@all"
+			style="background-color:dodgerblue;backgroung-border:dodgerblue" />
+		<p:commandButton value="Retour au panier" action="panier.xhtml"
+			update="@all"
+			style="background-color:dodgerblue;backgroung-border:dodgerblue" />
+
+		<p:commandButton value="Valider la commande"
+			action="validationCommande.xhtml" update="@all"
+			style="background-color:dodgerblue;backgroung-border:dodgerblue" />
+	</h:form>
+
+</h:body>
+</html>

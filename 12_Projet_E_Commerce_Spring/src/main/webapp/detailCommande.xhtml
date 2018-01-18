@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Page de détail d'une commande</title>
+		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<h:outputStylesheet library="css" name="myStyle.css" />
+</h:head>
+
+<h:body>
+
+	<div class="cadre">
+		<h1 style="text-align: center; color: black">Récapitulatif de la
+			commande : #{sessionScope.commande.idCommande}</h1>
+	</div>
+
+<h:form>
+	<p:dataTable id="tbl" var="ligne" value="#{sessionScope.lignesList}" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}" paginator="true">
+	
+	 <f:facet name="{Exporters}">
+            <h:commandLink>
+                <p:graphicImage value="resources/images/pdf.png" width="24"/>
+                <p:dataExporter type="pdf" target="tbl" fileName="Commande" />
+            </h:commandLink>
+            </f:facet>
+            
+		<p:column headerText="Produit">
+			<h:outputText value="#{ligne.produit.designation}" />
+		</p:column>
+
+		<p:column headerText="Description">
+			<h:outputText value="#{ligne.produit.description}" />
+		</p:column>
+
+		<p:column headerText="Prix Unitaire">
+			<h:outputText value="#{ligne.produit.prix}" />
+		</p:column>
+
+		<p:column headerText="Remise">
+			<h:outputText value="#{ligne.produit.remise}" />
+		</p:column>
+
+
+		<p:column headerText="Quantité">
+			<h:outputText value="#{ligne.quantite}" />
+		</p:column>
+		<p:column headerText="Prix total avant remise">
+			<h:outputText value="#{ligne.prixAvantRemise}" />
+		</p:column>
+
+		<p:column headerText="Prix total après remise">
+			<h:outputText value="#{ligne.prix}" />
+		</p:column>
+		
+	
+
+	</p:dataTable>
+	
+</h:form>	
+
+
+	<div>
+		<h:form>
+
+			<p:commandButton value="Recevoir mail"
+				action="#{clientMB.envoiMail()}"
+				style="background-color:dodgerblue;backgroung-border:dodgerblue">
+				<f:setPropertyActionListener value="#{sessionScope.lignesList}"
+					target="#{clientMB.listeLignes}" />
+			</p:commandButton>
+		</h:form>
+	</div>
+
+</h:body>
+</html>
