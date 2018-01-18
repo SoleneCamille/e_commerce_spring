@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>header</title>
+</h:head>
+
+<h:body>
+
+	<h:form>
+		<p:menubar style="margin-top:5px; background-color:powderBlue">
+			<p:menuitem>
+
+			</p:menuitem>
+
+			<p:menuitem value="Accueil" icon="ui-icon-check" url="accueil.xhtml" />
+
+			<f:facet name="options">
+				<p:commandButton value="Panier" action="#{lMB.voirPanier}"
+					style="border:none; background-color:powderBlue"/>
+
+			</f:facet>
+			
+			<p:menuitem value="Connexion Administrateur" icon="ui-icon-check" url="login.xhtml" />
+			
+		</p:menubar>
+	</h:form>
+
+
+</h:body>
+</html>

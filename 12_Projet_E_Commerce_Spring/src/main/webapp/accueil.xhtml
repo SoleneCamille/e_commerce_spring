@@ -8,11 +8,18 @@
 
 <h:head>
 	<title>Page d'accueil</title>
-
+	<link rel="shortcut icon" type="image/x-icon"
+		href="resources/images/favicon.ico" />
+	<h:outputStylesheet library="css" name="myStyle.css" />
 </h:head>
 
 <h:body>
 
+	<!-- insertion du header -->
+	<ui:insert name="page">
+		<!-- insérer concrètement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerAccueil.xhtml"></ui:include>
+	</ui:insert>
 
 
 	<h:form id="form">
@@ -34,7 +41,7 @@
 						<f:setPropertyActionListener value="#{cat}"
 							target="#{clientMB.categorie}" />
 					</p:commandLink>
-					
+
 					<p:outputPanel>
 						<h:panelGrid columns="2" cellpadding="2">
 							<h:outputText value="Nom:" />

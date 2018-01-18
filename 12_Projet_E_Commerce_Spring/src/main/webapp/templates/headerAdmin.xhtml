@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>header Admin</title>
+</h:head>
+
+<h:body>
+
+	<h:form>
+		<p:menubar style="margin-top:5px; background-color:powderBlue">
+
+			<p:menuitem value="Accueil" icon="ui-icon-check" url="accueilAdmin.xhtml" />
+
+			<p:submenu label="Catégories" icon="ui-icon-person">
+				<p:menuitem value="Ajouter une catégorie" url="ajoutCat.xhtml" icon="ui-icon-circle-plus" />
+				<p:menuitem value="Modifier une catégorie" url="modifCat.xhtml" icon="ui-icon-arrowrefresh-1-s" />
+				<p:menuitem value="Supprimer une catégorie" url="supprCat.xhtml" icon="ui-icon-scissors" />
+				<p:menuitem value="Consulter les produits d'une catégorie" url="rechercheCat.xhtml" icon="ui-icon-search" />
+			</p:submenu>
+			
+			<p:submenu label="Produits" icon="ui-icon-person">
+				<p:menuitem value="Ajouter un produit" url="ajoutProduit.xhtml" icon="ui-icon-circle-plus" />
+				<p:menuitem value="Modifier un produit" url="modifProduit.xhtml" icon="ui-icon-arrowrefresh-1-s" />
+				<p:menuitem value="Supprimer un produit" url="supprProduit.xhtml" icon="ui-icon-scissors" />
+				<p:menuitem value="Consulter un produit" url="afficheProduit.xhtml" icon="ui-icon-search" />
+			</p:submenu>
+
+			<f:facet name="options">
+				<p:commandButton value="Quitter" action="accueil.xhtml"
+					style="border:none; background-color:powderBlue"/>
+			</f:facet>
+		</p:menubar>
+	</h:form>
+
+
+
+</h:body>
+</html>

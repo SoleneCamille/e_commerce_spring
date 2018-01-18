@@ -1,0 +1,22 @@
+#entree {
+	background-image: url("#{ resource [ 'images:fondEntree.gif' ]}");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+body{
+	background-image: url("#{ resource [ 'images:fondGeneral.jpg' ]}");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.cadre {
+	background-color : azure;
+	border-style : groove;
+	border-color : black;
+}
+
+#cadre1{
+	margin : 300px;
+	padding-bottom :10px;
+}
