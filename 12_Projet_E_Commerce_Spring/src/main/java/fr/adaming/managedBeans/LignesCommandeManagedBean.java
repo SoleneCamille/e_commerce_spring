@@ -114,74 +114,74 @@ public class LignesCommandeManagedBean implements Serializable {
 		return "panier";
 	}
 
-//	public String viderPanier() {
-//		this.listeLignes = ligneService.getAllLignes(1);
-//
-//		for (LignesCommande element : listeLignes) {
-//			ligneService.deleteLigne(element);
-//		}
-//
-//		return "accueil";
-//	}
-//
-//	public String voirPanier() {
-//		this.listeLignes = ligneService.getAllLignes(1);
-//
-//		if (this.listeLignes != null) {
-//			// ajout de la liste dans la session
-//			maSession.setAttribute("lignesListe", this.listeLignes);
-//		}
-//
-//		return "panier";
-//	}
-//
-//	public String supprimerLigne() {
-//		ligneService.deleteLigne(this.ligne);
-//
-//		// récupérer la nouvelle liste de lignes de la BD
-//		this.listeLignes = ligneService.getAllLignes(1);
-//
-//		// ajouter la liste dans la session
-//		maSession.setAttribute("lignesListe", this.listeLignes);
-//
-//		return "panier";
-//	}
-//
-//	public String augmenterQuantite() {
-//
-//		Commande comDefaut = new Commande();
-//		comDefaut.setIdCommande(1);
-//
-//		System.out.println(this.ligne.getQuantite());
-//
-//		this.ligne.setQuantite(this.ligne.getQuantite() + 1);
-//
-//		this.ligne = ligneService.updateLigne(this.ligne, comDefaut, this.ligne.getProduit());
-//
-//		return "panier";
-//	}
-//
-//	public String diminuerQuantite() {
-//
-//		Commande comDefaut = new Commande();
-//		comDefaut.setIdCommande(1);
-//
-//		if (this.ligne.getQuantite() > 1) {
-//			this.ligne.setQuantite(this.ligne.getQuantite() - 1);
-//			this.ligne = ligneService.updateLigne(this.ligne, comDefaut, this.ligne.getProduit());
-//		} else {
-//			if (this.ligne.getQuantite() == 1) {
-//				ligneService.deleteLigne(this.ligne);
-//			}
-//		}
-//
-//		// récupérer la nouvelle liste de lignes de la BD
-//		this.listeLignes = ligneService.getAllLignes(1);
-//
-//		// ajouter la liste dans la session
-//		maSession.setAttribute("lignesListe", this.listeLignes);
-//
-//		return "panier";
-//	}
+	public String viderPanier() {
+		this.listeLignes = ligneService.getAllLignes(1);
+
+		for (LignesCommande element : listeLignes) {
+			ligneService.deleteLigne(element);
+		}
+
+		return "accueil";
+	}
+
+	public String voirPanier() {
+		this.listeLignes = ligneService.getAllLignes(1);
+
+		if (this.listeLignes != null) {
+			// ajout de la liste dans la session
+			maSession.setAttribute("lignesListe", this.listeLignes);
+		}
+
+		return "panier";
+	}
+
+	public String supprimerLigne() {
+		ligneService.deleteLigne(this.ligne);
+
+		// récupérer la nouvelle liste de lignes de la BD
+		this.listeLignes = ligneService.getAllLignes(1);
+
+		// ajouter la liste dans la session
+		maSession.setAttribute("lignesListe", this.listeLignes);
+
+		return "panier";
+	}
+
+	public String augmenterQuantite() {
+
+		Commande comDefaut = new Commande();
+		comDefaut.setIdCommande(1);
+
+		System.out.println(this.ligne.getQuantite());
+
+		this.ligne.setQuantite(this.ligne.getQuantite() + 1);
+
+		this.ligne = ligneService.updateLigne(this.ligne, comDefaut, this.ligne.getProduit());
+
+		return "panier";
+	}
+
+	public String diminuerQuantite() {
+
+		Commande comDefaut = new Commande();
+		comDefaut.setIdCommande(1);
+
+		if (this.ligne.getQuantite() > 1) {
+			this.ligne.setQuantite(this.ligne.getQuantite() - 1);
+			this.ligne = ligneService.updateLigne(this.ligne, comDefaut, this.ligne.getProduit());
+		} else {
+			if (this.ligne.getQuantite() == 1) {
+				ligneService.deleteLigne(this.ligne);
+			}
+		}
+
+		// récupérer la nouvelle liste de lignes de la BD
+		this.listeLignes = ligneService.getAllLignes(1);
+
+		// ajouter la liste dans la session
+		maSession.setAttribute("lignesListe", this.listeLignes);
+
+		return "panier";
+	}
 
 }
