@@ -13,7 +13,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-//import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 import fr.adaming.model.Administrateur;
 import fr.adaming.model.Categorie;
@@ -94,7 +94,7 @@ public class AdminManagedBean implements Serializable {
 				if (element.getPhoto()==null) {
 					element.setImage(null);
 				} else {
-					//element.setImage("data:image/png;base64,"+Base64.encodeBase64String(element.getPhoto()));
+					element.setImage("data:image/png;base64,"+Base64.encodeBase64String(element.getPhoto()));
 				}
 				this.listeCategories.add(element);
 			}

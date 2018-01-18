@@ -22,7 +22,7 @@ import org.primefaces.model.UploadedFile;
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 import fr.adaming.service.ICategorieService;
-//import fr.adaming.service.IProduitService;
+import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "catMB")
 @ViewScoped
@@ -32,8 +32,8 @@ public class CategorieManagedBean implements Serializable {
 	@ManagedProperty(value = "#{catService}")
 	private ICategorieService categorieService;
 
-//	@ManagedProperty(value = "#{pdtService}")
-//	private IProduitService produitService;
+	@ManagedProperty(value = "#{pdtService}")
+	private IProduitService produitService;
 
 	private Categorie categorie;
 	private List<Categorie> listeCategories;
@@ -71,6 +71,11 @@ public class CategorieManagedBean implements Serializable {
 
 	public void setCategorieService(ICategorieService categorieService) {
 		this.categorieService = categorieService;
+	}
+	
+
+	public void setProduitService(IProduitService produitService) {
+		this.produitService = produitService;
 	}
 
 	public String getImage() {
@@ -175,10 +180,10 @@ public class CategorieManagedBean implements Serializable {
 			// récupération de la liste des produits de cette categorie
 			listeProduits = catOut.getListeProduits();
 
-//			// supprimer les produits de cette categorie
-//			for (Produit p : listeProduits) {
-//				produitService.deleteProduit(p.getIdProduit());
-//			}
+			// supprimer les produits de cette categorie
+			for (Produit p : listeProduits) {
+			produitService.deleteProduit(p.getIdProduit());
+			}
 
 			// supprimer la categorie
 			categorieService.deleteCategorie(catOut.getIdCategorie());
@@ -197,55 +202,55 @@ public class CategorieManagedBean implements Serializable {
 		}
 
 	}
-//
-//	public String consulterCategorie() {
-//		Categorie catFind = categorieService.getCategorieByIdOrName(this.categorie);
-//
-//		if (catFind != null) {
-//			if (catFind.getPhoto() == null) {
-//				catFind.setImage(null);
-//			} else {
-//				//catFind.setImage("data:image/png;base64," + Base64.encodeBase64String(catFind.getPhoto()));
-//			}
-//
-//			this.categorie = catFind;
-//
-//			// ajout de la catégorie dans la session
-//			maSession.setAttribute("categ", this.categorie);
-//
-//			// récupération des produits de la categorie
-//			List<Produit> liste = this.categorie.getListeProduits();
-//			this.listeProduits = new ArrayList<Produit>();
-//
-//			if (liste != null) {
-//				for (Produit element : liste) {
-//					if (element.getPhoto() == null) {
-//						element.setImage(null);
-//					} else {
-//						//element.setImage("data:image/jpeg;base64," + Base64.encodeBase64String(element.getPhoto()));
-//					}
-//					this.listeProduits.add(element);
-//				}
-//
-//				// ajout de la liste de produits dans la session
-//				maSession.setAttribute("listeProd2", this.listeProduits);
-//
-//			} else {
-//				FacesContext.getCurrentInstance().addMessage(null,
-//						new FacesMessage("Pas de produit dans cette catégorie"));
-//
-//			}
-//
-//		} else {
-//			FacesContext.getCurrentInstance().addMessage(null,
-//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cette catégorie n'existe pas !", null));
-//
-//		}
-//
-//		return "rechercheCat";
-//
-//	}
-//
+
+	public String consulterCategorie() {
+		Categorie catFind = categorieService.getCategorieByIdOrName(this.categorie);
+
+		if (catFind != null) {
+			if (catFind.getPhoto() == null) {
+				catFind.setImage(null);
+			} else {
+				catFind.setImage("data:image/png;base64," + Base64.encodeBase64String(catFind.getPhoto()));
+			}
+
+			this.categorie = catFind;
+
+			// ajout de la catégorie dans la session
+			maSession.setAttribute("categ", this.categorie);
+
+			// récupération des produits de la categorie
+			List<Produit> liste = this.categorie.getListeProduits();
+			this.listeProduits = new ArrayList<Produit>();
+
+			if (liste != null) {
+				for (Produit element : liste) {
+					if (element.getPhoto() == null) {
+						element.setImage(null);
+					} else {
+						element.setImage("data:image/jpeg;base64," + Base64.encodeBase64String(element.getPhoto()));
+					}
+					this.listeProduits.add(element);
+				}
+
+				// ajout de la liste de produits dans la session
+				maSession.setAttribute("listeProd2", this.listeProduits);
+
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("Pas de produit dans cette catégorie"));
+
+			}
+
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cette catégorie n'existe pas !", null));
+
+		}
+
+		return "rechercheCat";
+
+	}
+
 	// méthode pour transformer une image en table de byte
 	public void upload(FileUploadEvent event) {
 		UploadedFile uploadedFile = event.getFile();
