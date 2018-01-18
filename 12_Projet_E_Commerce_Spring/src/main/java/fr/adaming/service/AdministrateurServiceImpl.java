@@ -20,4 +20,6 @@ public class AdministrateurServiceImpl implements IAdministrateurService {
 		return adminDao.isExist(a);
 	}
 
+	
+	
 }
