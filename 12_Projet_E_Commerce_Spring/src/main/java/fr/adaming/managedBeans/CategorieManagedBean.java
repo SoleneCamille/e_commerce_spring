@@ -15,10 +15,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-//import org.apache.tomcat.util.codec.binary.Base64;
-//import org.apache.tomcat.util.codec.binary.Base64;
-//import org.primefaces.event.FileUploadEvent;
-//import org.primefaces.model.UploadedFile;
+import org.apache.commons.codec.binary.Base64;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
@@ -100,7 +99,7 @@ public class CategorieManagedBean implements Serializable {
 			if (element.getPhoto() == null) {
 				element.setImage(null);
 			} else {
-				//element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
+				element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
 			}
 			this.listeCategories.add(element);
 		}
@@ -111,33 +110,33 @@ public class CategorieManagedBean implements Serializable {
 		return "accueil";
 	}
 
-//	public String ajouterCategorie() {
-//		this.categorie = categorieService.addCategorie(this.categorie);
-//
-//		if (this.categorie != null) {
-//			// récupération de la nouvelle liste de la bd
-//			List<Categorie> listOut = categorieService.getAllCategories();
-//			this.listeCategories = new ArrayList<Categorie>();
-//
-//			for (Categorie element : listOut) {
-//				if (element.getPhoto() == null) {
-//					element.setImage(null);
-//				} else {
-//					//element.setImage("data:image/jpeg;base64," + Base64.encodeBase64String(element.getPhoto()));
-//				}
-//				this.listeCategories.add(element);
-//			}
-//			// mettre à jour la liste dans la session
-//			maSession.setAttribute("categoriesList", this.listeCategories);
-//
-//			return "accueilAdmin";
-//		} else {
-//			FacesContext.getCurrentInstance().addMessage(null,
-//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cette catégorie n'a pas pu être ajoutée !", null));
-//			return "accueil";
-//		}
-//
-//	}
+	public String ajouterCategorie() {
+		this.categorie = categorieService.addCategorie(this.categorie);
+
+		if (this.categorie != null) {
+			// récupération de la nouvelle liste de la bd
+			List<Categorie> listOut = categorieService.getAllCategories();
+			this.listeCategories = new ArrayList<Categorie>();
+
+			for (Categorie element : listOut) {
+				if (element.getPhoto() == null) {
+					element.setImage(null);
+				} else {
+					element.setImage("data:image/jpeg;base64," + Base64.encodeBase64String(element.getPhoto()));
+				}
+				this.listeCategories.add(element);
+			}
+			// mettre à jour la liste dans la session
+			maSession.setAttribute("categoriesList", this.listeCategories);
+
+			return "accueilAdmin";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cette catégorie n'a pas pu être ajoutée !", null));
+			return "accueil";
+		}
+
+	}
 //
 //	public String modifierCategorie() {
 //		this.categorie = categorieService.updateCategorie(this.categorie);
@@ -247,15 +246,15 @@ public class CategorieManagedBean implements Serializable {
 //
 //	}
 //
-//	// méthode pour transformer une image en table de byte
-//	public void upload(FileUploadEvent event) {
-//		UploadedFile uploadedFile = event.getFile();
-//		// récupérer le contenu de l'image en byte
-//		byte[] contents = uploadedFile.getContents();
-//
-//		// stocker le contenu dans l'attribut photo de categorie
-//		categorie.setPhoto(contents);
-//		// transforme byteArray en string (format base64)
-//		//this.image = "data:image/png;base64," + Base64.encodeBase64String(contents);
-//	}
+	// méthode pour transformer une image en table de byte
+	public void upload(FileUploadEvent event) {
+		UploadedFile uploadedFile = event.getFile();
+		// récupérer le contenu de l'image en byte
+		byte[] contents = uploadedFile.getContents();
+
+		// stocker le contenu dans l'attribut photo de categorie
+		categorie.setPhoto(contents);
+		// transforme byteArray en string (format base64)
+		this.image = "data:image/png;base64," + Base64.encodeBase64String(contents);
+	}
 }
