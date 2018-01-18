@@ -57,8 +57,17 @@ public class ProduitDaoImpl implements IProduitDao {
 
 		// recupérer la session hibernate
 		Session s = sf.getCurrentSession();
+		
+		Produit pOut = (Produit) s.get(Produit.class, p.getIdProduit());
+		pOut.setDescription(p.getDescription());
+		pOut.setDesignation(p.getDesignation());
+		pOut.setImage(p.getImage());
+		pOut.setPhoto(p.getPhoto());
+		pOut.setPrix(p.getPrix());
+		pOut.setQuantite(p.getQuantite());
+		pOut.setRemise(p.getRemise());				
 
-		s.saveOrUpdate(p);
+		s.saveOrUpdate(pOut);
 		// envoi de la requete et recup du resultat
 		return p;
 	}
