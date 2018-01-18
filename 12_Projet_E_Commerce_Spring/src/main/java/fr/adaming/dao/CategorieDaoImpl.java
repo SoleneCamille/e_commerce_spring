@@ -50,7 +50,13 @@ public class CategorieDaoImpl implements ICategorieDao {
 	public Categorie updateCategorie(Categorie cat) {
 		// recupérer la session hibernate
 		Session s = sf.getCurrentSession();
-		s.saveOrUpdate(cat);
+		
+		Categorie cOut=(Categorie) s.get(Categorie.class, cat.getIdCategorie());
+		cOut.setImage(cat.getImage());
+		cOut.setPhoto(cat.getPhoto());
+		cOut.setDescription(cat.getDescription());
+		cOut.setNomCategorie(cat.getNomCategorie());
+		s.saveOrUpdate(cOut);
 		return cat;
 	}
 

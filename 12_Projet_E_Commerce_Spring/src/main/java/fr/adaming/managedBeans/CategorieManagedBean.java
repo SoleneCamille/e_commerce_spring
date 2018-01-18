@@ -137,66 +137,66 @@ public class CategorieManagedBean implements Serializable {
 		}
 
 	}
-//
-//	public String modifierCategorie() {
-//		this.categorie = categorieService.updateCategorie(this.categorie);
-//
-//		if (this.categorie != null) {
-//			// récupération de la nouvelle liste de la bd
-//			List<Categorie> listOut = categorieService.getAllCategories();
-//			this.listeCategories = new ArrayList<Categorie>();
-//
-//			for (Categorie element : listOut) {
-//				if (element.getPhoto() == null) {
-//					element.setImage(null);
-//				} else {
-//					//element.setImage("data:image/jpeg;base64," + Base64.encodeBase64String(element.getPhoto()));
-//				}
-//				this.listeCategories.add(element);
+
+	public String modifierCategorie() {
+		this.categorie = categorieService.updateCategorie(this.categorie);
+
+		if (this.categorie != null) {
+			// récupération de la nouvelle liste de la bd
+			List<Categorie> listOut = categorieService.getAllCategories();
+			this.listeCategories = new ArrayList<Categorie>();
+
+			for (Categorie element : listOut) {
+				if (element.getPhoto() == null) {
+					element.setImage(null);
+				} else {
+					element.setImage("data:image/jpeg;base64," + Base64.encodeBase64String(element.getPhoto()));
+				}
+				this.listeCategories.add(element);
+			}
+
+			// mettre à jour la liste dans la session
+			maSession.setAttribute("categoriesList", this.listeCategories);
+
+			return "accueilAdmin";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cette catégorie n'existe pas !", null));
+			return "modifCat";
+		}
+
+	}
+
+	public String supprimerCategorie() {
+		Categorie catOut = categorieService.getCategorieByIdOrName(this.categorie);
+
+		if (catOut != null) {
+
+			// récupération de la liste des produits de cette categorie
+			listeProduits = catOut.getListeProduits();
+
+//			// supprimer les produits de cette categorie
+//			for (Produit p : listeProduits) {
+//				produitService.deleteProduit(p.getIdProduit());
 //			}
-//
-//			// mettre à jour la liste dans la session
-//			maSession.setAttribute("categoriesList", this.listeCategories);
-//
-//			return "accueilAdmin";
-//		} else {
-//			FacesContext.getCurrentInstance().addMessage(null,
-//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cette catégorie n'existe pas !", null));
-//			return "modifCat";
-//		}
-//
-//	}
-//
-//	public String supprimerCategorie() {
-//		Categorie catOut = categorieService.getCategorieByIdOrName(this.categorie);
-//
-//		if (catOut != null) {
-//
-//			// récupération de la liste des produits de cette categorie
-//			listeProduits = catOut.getListeProduits();
-//
-////			// supprimer les produits de cette categorie
-////			for (Produit p : listeProduits) {
-////				produitService.deleteProduit(p.getIdProduit());
-////			}
-//
-//			// supprimer la categorie
-//			categorieService.deleteCategorie(catOut.getIdCategorie());
-//
-//			// récupération de la nouvelle liste de categories de la bd
-//			this.listeCategories = categorieService.getAllCategories();
-//
-//			// mettre à jour la liste dans la session
-//			maSession.setAttribute("categoriesList", this.listeCategories);
-//
-//			return "accueilAdmin";
-//		} else {
-//			FacesContext.getCurrentInstance().addMessage(null,
-//					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cette catégorie n'existe pas !", null));
-//			return "supprCat";
-//		}
-//
-//	}
+
+			// supprimer la categorie
+			categorieService.deleteCategorie(catOut.getIdCategorie());
+
+			// récupération de la nouvelle liste de categories de la bd
+			this.listeCategories = categorieService.getAllCategories();
+
+			// mettre à jour la liste dans la session
+			maSession.setAttribute("categoriesList", this.listeCategories);
+
+			return "accueilAdmin";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cette catégorie n'existe pas !", null));
+			return "supprCat";
+		}
+
+	}
 //
 //	public String consulterCategorie() {
 //		Categorie catFind = categorieService.getCategorieByIdOrName(this.categorie);
