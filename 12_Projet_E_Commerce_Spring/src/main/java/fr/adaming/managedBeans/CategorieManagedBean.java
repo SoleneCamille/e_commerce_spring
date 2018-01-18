@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
 
 //import org.apache.tomcat.util.codec.binary.Base64;
 //import org.apache.tomcat.util.codec.binary.Base64;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
+//import org.primefaces.event.FileUploadEvent;
+//import org.primefaces.model.UploadedFile;
 
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
@@ -134,7 +134,7 @@ public class CategorieManagedBean implements Serializable {
 //		} else {
 //			FacesContext.getCurrentInstance().addMessage(null,
 //					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cette catégorie n'a pas pu être ajoutée !", null));
-//			return "login";
+//			return "accueil";
 //		}
 //
 //	}
