@@ -31,9 +31,9 @@
 		Designation :
 		<p:inputText value="#{pMB.produit.designation}"/>
 
-		<h:commandButton
+		<p:commandButton
 			style="background-color:dodgerblue;backgroung-border:dodgerblue; width:150px;height:35px"
-			value="Afficher" action="#{pMB.afficherProduit}" />
+			value="Afficher" action="#{pMB.afficherProduit}" update="@all"/>
 			</h:panelGrid>
 			</center>
 	</h:form>
@@ -82,6 +82,7 @@
 			</p:dataTable>
 		</h:form>
 
+<div class="cadre"><h:messages/></div>
 
 
 </h:body>
