@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-
-
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -153,10 +152,15 @@ public class LignesCommandeManagedBean implements Serializable {
 		comDefaut.setIdCommande(1);
 
 		System.out.println(this.ligne.getQuantite());
+		
+		if(this.ligne.getQuantite()<this.ligne.getProduit().getQuantite()){
 
 		this.ligne.setQuantite(this.ligne.getQuantite() + 1);
 
-		this.ligne = ligneService.updateLigne(this.ligne, comDefaut, this.ligne.getProduit());
+		this.ligne = ligneService.updateLigne(this.ligne, comDefaut, this.ligne.getProduit());}
+		else{
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Stock insuffisant"));
+		}
 
 		return "panier";
 	}
