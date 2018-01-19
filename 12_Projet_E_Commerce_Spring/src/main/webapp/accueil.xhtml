@@ -24,23 +24,21 @@
 
 	<h:form id="form">
 		<p:dataGrid var="cat" value="#{sessionScope.categoriesList}"
-			columns="2" layout="grid" rows="16" paginator="true"
+			columns="1" layout="grid" rows="25" paginator="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 
-			<f:facet name="header">
-            Categories
-        </f:facet>
 
 			<p:panel header="#{cat.idCategorie}" style="text-align:center">
 				<h:panelGrid columns="2" style="width:300px"
 					columnClasses="logo,detail">
 
-					<p:commandLink action="#{clientMB.consulterCategorie}">
+
+					<h:commandLink action="#{clientMB.consulterCategorie}">
 
 						<h:graphicImage value="#{cat.image}" />
 						<f:setPropertyActionListener value="#{cat}"
 							target="#{clientMB.categorie}" />
-					</p:commandLink>
+					</h:commandLink>
 
 					<p:outputPanel>
 						<h:panelGrid columns="2" cellpadding="2">
@@ -57,7 +55,27 @@
 			</p:panel>
 		</p:dataGrid>
 	</h:form>
+	
+	<h:form>
+	<p:galleria value="#{sessionScope.categoriesList}" var="cate" panelWidth="500" panelHeight="313" showCaption="true">
+    <p:graphicImage name="#{cate.image}" alt="Image Description for #{cate.description}" title="#{cate.nomCategorie}"/>
+</p:galleria>
+</h:form>
 
+<br/>
+<h:form>
+<p:commandButton type="button" onclick="PF('switcher').previous();"
+    icon="ui-icon-circle-triangle-w" id="prev"/>
+<p:commandButton type="button" onclick="PF('switcher').next();"
+    icon="ui-icon-circle-triangle-e" id="next"/>
+ 
+<p:imageSwitch effect="wipe" widgetVar="switcher" id="manuelSwitcher"
+    slideshowAuto="false">
+    <ui:repeat value="#{sessionScope.categoriesList}" var="cate2" id="manuelSwitcherImages">
+        <p:graphicImage value="#{cate2.image}" id="image"/>
+    </ui:repeat>
+</p:imageSwitch>
 
+</h:form>
 </h:body>
 </html>
