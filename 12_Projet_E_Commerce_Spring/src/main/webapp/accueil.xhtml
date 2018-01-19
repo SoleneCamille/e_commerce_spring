@@ -56,26 +56,35 @@
 		</p:dataGrid>
 	</h:form>
 	
-	<h:form>
-	<p:galleria value="#{sessionScope.categoriesList}" var="cate" panelWidth="500" panelHeight="313" showCaption="true">
-    <p:graphicImage name="#{cate.image}" alt="Image Description for #{cate.description}" title="#{cate.nomCategorie}"/>
-</p:galleria>
-</h:form>
-
-<br/>
-<h:form>
-<p:commandButton type="button" onclick="PF('switcher').previous();"
-    icon="ui-icon-circle-triangle-w" id="prev"/>
-<p:commandButton type="button" onclick="PF('switcher').next();"
-    icon="ui-icon-circle-triangle-e" id="next"/>
+<div class="ui-g" var="cat" value="#{sessionScope.categoriesList}">
+   
+    <div class="ui-g-12 ui-md-10 ui-g-nopad">
+        <div class="ui-g-12">
+            Catégories
+        </div>
+        <div class="ui-g-12 ui-g-nopad">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-4"><h:outputText value="#{cat.nomCategorie}"
+								style="font-weight: bold" /></div>
+                <div class="ui-g-12 ui-md-4"><h:outputText value="#{cat.nomCategorie}"
+								style="font-weight: bold" /></div>
+                <div class="ui-g-12 ui-md-4"><h:outputText value="#{cat.description}"
+								style="font-weight: bold" /></div>
+            </div>
  
-<p:imageSwitch effect="wipe" widgetVar="switcher" id="manuelSwitcher"
-    slideshowAuto="false">
-    <ui:repeat value="#{sessionScope.categoriesList}" var="cate2" id="manuelSwitcherImages">
-        <p:graphicImage value="#{cate2.image}" id="image"/>
-    </ui:repeat>
-</p:imageSwitch>
+            <div class="ui-g">
+                <div class="ui-g-6 ui-md-3"><h:graphicImage value="#{cat.image}" style="width:100%"/></div>  
+                
+            </div>
+ 
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-6">texte</div>
+                <div class="ui-g-12 ui-md-6">texte</div>
+            </div>
+        </div>
+    </div>
+    </div>
 
-</h:form>
+
 </h:body>
 </html>
