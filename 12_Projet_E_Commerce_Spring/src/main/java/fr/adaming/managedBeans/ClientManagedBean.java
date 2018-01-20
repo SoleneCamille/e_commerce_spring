@@ -432,5 +432,9 @@ public class ClientManagedBean implements Serializable {
 	public String seDeconnecter() {	
 		return "accueil";
 	}
+	
+	public void rechercher() {
+		System.out.println("----------------------------------------- Coucou");
+	}
 
 }

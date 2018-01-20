@@ -22,19 +22,21 @@
 	</ui:insert>
 
 	<h:form>
-		<div class="ui-g" style="margin-left:120px; margin-right:120px">
+		<p:inputText style="margin-right:10px" placeholder="Search" />
+		<div class="ui-g" style="margin-left: 120px; margin-right: 120px">
 			<div class="ui-g-20 ui-md-20 ui-g-nopad">
 				<div class="ui-g-20 ui-g-nopad">
 
 					<div class="ui-g">
 						<ui:repeat var="cat" value="#{sessionScope.categoriesList}">
-							<div style="width: 325px; margin-right:20px; margin-bottom:20px">
+							<div
+								style="width: 325px; margin-right: 20px; margin-bottom: 20px">
 								<p:panel header="#{cat.idCategorie}"
 									style="text-align:center; background-color: rgba(56, 158, 255, 0.2)">
 									<h:panelGrid columns="1" columnClasses="logo,detail">
 
 										<h:commandLink action="#{clientMB.consulterCategorie}">
-											<div style="width:290px; height:250px">
+											<div style="width: 290px; height: 250px">
 												<h:graphicImage value="#{cat.image}" style="width:250px" />
 												<f:setPropertyActionListener value="#{cat}"
 													target="#{clientMB.categorie}" />
