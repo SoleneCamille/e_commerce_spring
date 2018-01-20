@@ -8,60 +8,77 @@
 
 <h:head>
 	<title>Page de détail d'une commande</title>
-		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<link rel="shortcut icon" type="image/x-icon"
+		href="resources/images/favicon.ico" />
 	<h:outputStylesheet library="css" name="myStyle.css" />
 </h:head>
 
 <h:body>
+
+	<ui:insert name="page">
+		<!-- insérer concrètement le layout avec la balise ui:include -->
+		<ui:include src="/templates/headerClient.xhtml"></ui:include>
+	</ui:insert>
 
 	<div class="cadre">
 		<h1 style="text-align: center; color: black">Récapitulatif de la
 			commande : #{sessionScope.commande.idCommande}</h1>
 	</div>
 
-<h:form>
-	<p:dataTable id="tbl" var="ligne" value="#{sessionScope.lignesList}" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}" paginator="true">
-	
-	 <f:facet name="{Exporters}">
-            <h:commandLink>
-                <p:graphicImage value="resources/images/pdf.png" width="24"/>
-                <p:dataExporter type="pdf" target="tbl" fileName="Commande" />
-            </h:commandLink>
-            </f:facet>
-            
-		<p:column headerText="Produit">
-			<h:outputText value="#{ligne.produit.designation}" />
-		</p:column>
+	<h:form>
+		<p:dataTable var="ligne" value="#{sessionScope.lignesList}"></p:dataTable>
+		<p:dataTable id="tbl" var="ligne" value="#{sessionScope.lignesList}"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+			paginator="true">
 
-		<p:column headerText="Description">
-			<h:outputText value="#{ligne.produit.description}" />
-		</p:column>
+			<f:facet name="header">
+           Commande N° #{sessionScope.commande.idCommande}
+        	</f:facet>
 
-		<p:column headerText="Prix Unitaire">
-			<h:outputText value="#{ligne.produit.prix}" />
-		</p:column>
+			<f:facet name="{Exporters}">
+				<h:commandLink>
+					<p:graphicImage value="resources/images/pdf.png" width="24" />
+					<p:dataExporter type="pdf" target="tbl" fileName="Commande" options="#{clientMB.pdfOpt}"/>
+				</h:commandLink>
+			</f:facet>
 
-		<p:column headerText="Remise">
-			<h:outputText value="#{ligne.produit.remise}" />
-		</p:column>
+			<p:column headerText="Produit">
+				<h:outputText value="#{ligne.produit.designation}" />
+			</p:column>
+
+			<p:column headerText="Description">
+				<h:outputText value="#{ligne.produit.description}" />
+			</p:column>
+
+			<p:column headerText="Prix Unitaire">
+				<h:outputText value="#{ligne.produit.prix}" />
+			</p:column>
+
+			<p:column headerText="Remise">
+				<h:outputText value="#{ligne.produit.remise}" />
+			</p:column>
 
 
-		<p:column headerText="Quantité">
-			<h:outputText value="#{ligne.quantite}" />
-		</p:column>
-		<p:column headerText="Prix total avant remise">
-			<h:outputText value="#{ligne.prixAvantRemise}" />
-		</p:column>
+			<p:column headerText="Quantité">
+				<h:outputText value="#{ligne.quantite}" />
+			</p:column>
+			<p:column headerText="Prix total avant remise">
+				<h:outputText value="#{ligne.prixAvantRemise}" />
+			</p:column>
 
-		<p:column headerText="Prix total après remise">
-			<h:outputText value="#{ligne.prix}" />
-		</p:column>
-		
-	
+			<p:column headerText="Prix total après remise">
+				<h:outputText value="#{ligne.prix}" />
+			</p:column>
 
-	</p:dataTable>
-	
-</h:form>	
+			<f:facet name="footer">
+           Total avant remise : #{sessionScope.commande.prixAvant} 
+           | 
+           Total après remise : #{sessionScope.commande.prixApres}
+        	</f:facet>
+
+		</p:dataTable>
+
+	</h:form>
 
 
 	<div>
@@ -73,6 +90,10 @@
 				<f:setPropertyActionListener value="#{sessionScope.lignesList}"
 					target="#{clientMB.listeLignes}" />
 			</p:commandButton>
+
+			<p:commandButton value="Retour aux commandes"
+				action="recapCommandes.xhtml" update="@all"
+				style="background-color:dodgerblue;backgroung-border:dodgerblue" />
 		</h:form>
 	</div>
 

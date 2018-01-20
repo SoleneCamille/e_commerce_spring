@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
+	<title>Page de connexion</title>
 
-	<title>Page login</title>
 	<link rel="shortcut icon" type="image/x-icon"
 		href="resources/images/favicon.ico" />
 	<h:outputStylesheet library="css" name="myStyle.css" />
 </h:head>
+
 <h:body>
 
 	<!-- insertion du header -->
@@ -23,22 +24,22 @@
 
 	<div class="cadre">
 		<h1 style="color: black; text-align: center">Formulaire de
-			connexion administrateur</h1>
+			connexion client</h1>
 
 		<h:form>
 			<center>
 				<h:panelGrid columns="2" style="margin-top:50px">
 					<h:outputText value="Mail" style="font:30px"></h:outputText>
-					<h:inputText value="#{aMB.admin.mail}"
+					<h:inputText value="#{clientMB.client.email}"
 						style="width:200px;height:30px; backgroung-border:silver" />
 					<h:outputText value="Mot de passe" style="size:30px"></h:outputText>
-					<h:inputSecret value="#{aMB.admin.mdp}"
+					<h:inputSecret value="#{clientMB.client.mdp}"
 						style="width:200px;height:30px; backgroung-border:silver" />
 
 					<p:spacer height="50" />
 					<p:commandButton
 						style="background-color:dodgerblue;backgroung-border:dodgerblue; width:150px;height:35px"
-						value="Connexion" action="#{aMB.seConnecter}" update="@all" />
+						value="Connexion" action="#{clientMB.seConnecter2}" update="@all" />
 				</h:panelGrid>
 			</center>
 

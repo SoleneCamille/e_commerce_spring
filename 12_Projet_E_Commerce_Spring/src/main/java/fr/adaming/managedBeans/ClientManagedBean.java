@@ -17,6 +17,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -41,6 +42,7 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.TextField;
 
 import fr.adaming.model.Administrateur;
 import fr.adaming.model.Categorie;
@@ -361,6 +363,26 @@ public class ClientManagedBean implements Serializable {
 		t.close();
 	}
 
+	public String seConnecter2() {
+		try {
+
+			// récupération du client
+			Client cOut = clientService.isExist(this.client);
+
+			// récupération des lignes de commande de ce client
+			List<Commande> listeCom = comService.getAllCommandesFromClient(cOut);
+			maSession.setAttribute("comListe", listeCom);
+
+			return "recapCommandes";
+
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("L'identifiant ou le mot de passe est incorrect"));
+
+		}
+		return "loginClient";
+	}
+
 	public String seConnecter() {
 
 		try {
@@ -408,13 +430,33 @@ public class ClientManagedBean implements Serializable {
 	}
 
 	public String afficherDetail() {
-		System.out.println("#####affiche detail########");
 		this.listeLignes = ligneService.getAllLignes(this.commande.getIdCommande());
-		// System.out.println(listeLignes.size());
+
 		maSession.setAttribute("lignesList", this.listeLignes);
 		maSession.setAttribute("commande", this.commande);
 
 		return "detailCommande";
 	}
+
+	public String seDeconnecter() {	
+		return "accueil";
+	}
+	
+	public void pdfOpt(Object document) {
+        Document pdf = (Document) document;
+        pdf.open();
+        Commande comm = (Commande) maSession.getAttribute("commande");
+        
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        
+        String msg = externalContext.getRealPath("Commande N°"+comm.getIdCommande());
+        
+        String prix = "Prix total avant remise : "+comm.getPrixAvant();
+        String prixApres = "Prix total apres remise : "+comm.getPrixApres();
+       
+         
+        pdf.add(TextField("prix"));
+        
+    }
 
 }

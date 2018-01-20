@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>header Client</title>
+</h:head>
+
+<h:body>
+
+	<h:form>
+
+		<p:menubar style="margin-top:5px; background-color:powderBlue">
+
+			<f:facet name="options">
+				<p:commandButton value="Quitter" action="#{clientMB.seDeconnecter}"
+					style="border:none; background-color:powderBlue" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+
+</h:body>
+</html>
