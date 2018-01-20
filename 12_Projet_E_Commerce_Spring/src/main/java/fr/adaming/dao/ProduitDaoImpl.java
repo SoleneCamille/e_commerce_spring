@@ -65,7 +65,8 @@ public class ProduitDaoImpl implements IProduitDao {
 		pOut.setPhoto(p.getPhoto());
 		pOut.setPrix(p.getPrix());
 		pOut.setQuantite(p.getQuantite());
-		pOut.setRemise(p.getRemise());				
+		pOut.setRemise(p.getRemise());
+		pOut.setSelectionne(p.isSelectionne());
 
 		s.saveOrUpdate(pOut);
 		// envoi de la requete et recup du resultat
