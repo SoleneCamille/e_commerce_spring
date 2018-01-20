@@ -320,9 +320,9 @@ public class ClientManagedBean implements Serializable {
 
 		// Envoi du mail contenant le pdf
 		System.out.println("############test mail#############");
-		// System.out.println(this.client);
-		// System.out.println(this.commande.getClient().getEmail());
-
+		this.client=(Client) maSession.getAttribute("client");
+		System.out.println(this.client.getEmail());
+		
 		Properties props = System.getProperties();
 		props.put("mail.smtps.host", "smtp.gmail.com");
 		props.put("mail.smtps.auth", "true");
@@ -330,7 +330,7 @@ public class ClientManagedBean implements Serializable {
 		Message msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress("application.j2ee@gmail.com"));
 		;
-		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("jegonday.solene@gmail.com", false));
+		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(this.client.getEmail(), false));
 		msg.setSubject("winterIsComing " + System.currentTimeMillis());
 		msg.setText("Votre commande est validée ");
 		msg.setSentDate(new Date());
@@ -363,6 +363,7 @@ public class ClientManagedBean implements Serializable {
 			// récupération des lignes de commande de ce client
 			List<Commande> listeCom = comService.getAllCommandesFromClient(cOut);
 			maSession.setAttribute("comListe", listeCom);
+			maSession.setAttribute("client", cOut);
 
 			return "recapCommandes";
 
@@ -409,6 +410,7 @@ public class ClientManagedBean implements Serializable {
 
 			List<Commande> listeCom = comService.getAllCommandesFromClient(cOut);
 			maSession.setAttribute("comListe", listeCom);
+			maSession.setAttribute("client", cOut);
 
 			return "recapCommandes";
 
