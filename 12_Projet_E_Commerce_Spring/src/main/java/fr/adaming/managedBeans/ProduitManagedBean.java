@@ -41,6 +41,8 @@ public class ProduitManagedBean implements Serializable {
 	private HttpSession maSession;
 
 	private String image;
+	
+	private String recherche;
 
 	// constructeur
 	public ProduitManagedBean() {
@@ -94,6 +96,14 @@ public class ProduitManagedBean implements Serializable {
 
 	public void setCategorieService(ICategorieService categorieService) {
 		this.categorieService = categorieService;
+	}
+
+	public String getRecherche() {
+		return recherche;
+	}
+
+	public void setRecherche(String recherche) {
+		this.recherche = recherche;
 	}
 
 	// methodes
@@ -200,6 +210,30 @@ public class ProduitManagedBean implements Serializable {
 		produit.setPhoto(contents);
 		// transforme byteArray en string (format base64)
 		this.image = "data:image/png;base64," + Base64.encodeBase64String(contents);
+	}
+	
+	public String rechercherProd() {
+		// récupérer la liste de catégories
+		this.listeProduit = produitService.getProduitByCat(this.categorie);
+
+		// créer une nouvelle liste ou on stocke les catégories recherchées
+		List<Produit> listOut = new ArrayList<Produit>();
+
+		for (Produit element : this.listeProduit) {
+			if (element.getDesignation().startsWith(this.recherche)) {
+				if (element.getPhoto() == null) {
+					element.setImage(null);
+				} else {
+					element.setImage("data:image/jpeg;base64," + Base64.encodeBase64String(element.getPhoto()));
+				}
+				listOut.add(element);
+			}
+		}
+
+		// enregister la nouvelle liste dans la session
+		maSession.setAttribute("listeProduits", listOut);
+
+		return "afficheProduitsClient";
 	}
 
 }

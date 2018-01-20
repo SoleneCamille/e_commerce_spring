@@ -22,7 +22,9 @@
 	</ui:insert>
 
 	<h:form>
-		<p:inputText style="margin-right:10px" placeholder="Search" value="#{catMB.recherche}" action="#{catMB.recherche}"/>
+		<p:inputText style="margin-right:10px" placeholder="Search" value="#{catMB.recherche}"/>
+		<p:commandButton value="Rechercher"  action="#{catMB.rechercherCat}" update="@all"/>
+		
 		<div class="ui-g" style="margin-left: 120px; margin-right: 120px">
 			<div class="ui-g-20 ui-md-20 ui-g-nopad">
 				<div class="ui-g-20 ui-g-nopad">

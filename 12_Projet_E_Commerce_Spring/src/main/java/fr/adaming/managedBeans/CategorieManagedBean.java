@@ -272,17 +272,20 @@ public class CategorieManagedBean implements Serializable {
 		this.image = "data:image/png;base64," + Base64.encodeBase64String(contents);
 	}
 
-	public String recherche() {
+	public String rechercherCat() {
 		// récupérer la liste de catégories
 		this.listeCategories = categorieService.getAllCategories();
-		
-		System.out.println("-----------------------------------------"+this.recherche);
 
 		// créer une nouvelle liste ou on stocke les catégories recherchées
 		List<Categorie> listOut = new ArrayList<Categorie>();
 
 		for (Categorie element : listeCategories) {
 			if (element.getNomCategorie().startsWith(this.recherche)) {
+				if (element.getPhoto() == null) {
+					element.setImage(null);
+				} else {
+					element.setImage("data:image/jpeg;base64," + Base64.encodeBase64String(element.getPhoto()));
+				}
 				listOut.add(element);
 			}
 		}

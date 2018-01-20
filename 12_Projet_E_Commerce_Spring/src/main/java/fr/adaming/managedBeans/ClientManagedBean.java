@@ -187,6 +187,9 @@ public class ClientManagedBean implements Serializable {
 
 			// ajout de la liste de produits dans la session
 			maSession.setAttribute("listeProduits", this.listeProduit);
+			
+			//ajout de la catégorie dans la session (pour la recherche de produits par la barre de recherche
+			maSession.setAttribute("categorie", this.categorie);
 
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pas de produit dans cette catégorie"));
