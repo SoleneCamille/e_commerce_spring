@@ -84,7 +84,7 @@
 				<p:column headerText="Prix total avant remise">
 					<h:outputText value="#{commande.prixAvant}" />
 				</p:column>
-				
+
 				<p:column headerText="Prix total après remise">
 					<h:outputText value="#{commande.prixApres}" />
 				</p:column>
@@ -103,6 +103,9 @@
 			style="background-color:dodgerblue;backgroung-border:dodgerblue" />
 		<p:commandButton value="Annuler la commande"
 			action="#{lMB.viderPanier}" update="@all"
+			style="background-color:dodgerblue;backgroung-border:dodgerblue" />
+		<p:commandButton value="Valider la commande"
+			action="validationCommande.xhtml" update="@all"
 			style="background-color:dodgerblue;backgroung-border:dodgerblue" />
 
 	</h:form>
