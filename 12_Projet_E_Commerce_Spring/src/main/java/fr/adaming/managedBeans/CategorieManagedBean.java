@@ -39,6 +39,8 @@ public class CategorieManagedBean implements Serializable {
 	private List<Categorie> listeCategories;
 	private List<Produit> listeProduits;
 
+	private String recherche;
+
 	private HttpSession maSession;
 	private String image;
 
@@ -72,7 +74,6 @@ public class CategorieManagedBean implements Serializable {
 	public void setCategorieService(ICategorieService categorieService) {
 		this.categorieService = categorieService;
 	}
-	
 
 	public void setProduitService(IProduitService produitService) {
 		this.produitService = produitService;
@@ -92,6 +93,14 @@ public class CategorieManagedBean implements Serializable {
 
 	public void setListeProduits(List<Produit> listeProduits) {
 		this.listeProduits = listeProduits;
+	}
+
+	public String getRecherche() {
+		return recherche;
+	}
+
+	public void setRecherche(String recherche) {
+		this.recherche = recherche;
 	}
 
 	// les méthodes métiers
@@ -182,7 +191,7 @@ public class CategorieManagedBean implements Serializable {
 
 			// supprimer les produits de cette categorie
 			for (Produit p : listeProduits) {
-			produitService.deleteProduit(p.getIdProduit());
+				produitService.deleteProduit(p.getIdProduit());
 			}
 
 			// supprimer la categorie
@@ -261,5 +270,24 @@ public class CategorieManagedBean implements Serializable {
 		categorie.setPhoto(contents);
 		// transforme byteArray en string (format base64)
 		this.image = "data:image/png;base64," + Base64.encodeBase64String(contents);
+	}
+
+	public String recherche() {
+		// récupérer la liste de catégories
+		this.listeCategories = categorieService.getAllCategories();
+
+		// créer une nouvelle liste ou on stocke les catégories recherchées
+		List<Categorie> listOut = new ArrayList<Categorie>();
+
+		for (Categorie element : listeCategories) {
+			if (element.getNomCategorie().startsWith(this.recherche)) {
+				listOut.add(element);
+			}
+		}
+
+		// enregister la nouvelle liste dans la session
+		maSession.setAttribute("categoriesList", listOut);
+
+		return "accueil";
 	}
 }
