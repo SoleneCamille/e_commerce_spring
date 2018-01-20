@@ -275,6 +275,8 @@ public class CategorieManagedBean implements Serializable {
 	public String recherche() {
 		// récupérer la liste de catégories
 		this.listeCategories = categorieService.getAllCategories();
+		
+		System.out.println("-----------------------------------------"+this.recherche);
 
 		// créer une nouvelle liste ou on stocke les catégories recherchées
 		List<Categorie> listOut = new ArrayList<Categorie>();
