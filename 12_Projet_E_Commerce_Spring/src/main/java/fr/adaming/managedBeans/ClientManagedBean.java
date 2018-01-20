@@ -212,27 +212,6 @@ public class ClientManagedBean implements Serializable {
 		return "afficheProduitsClient";
 
 	}
-
-	public String getPrixCommande(){
-		Client clientDefaut = new Client();
-		clientDefaut.setIdClient(1);
-		clientDefaut = clientService.getClientById(clientDefaut);
-		
-		this.commande.setIdCommande(1);
-		this.commande = comService.getCommandeById(this.commande);		
-		
-		double prixAvant=comService.getPrixTotalAvantRemise(this.commande);
-		this.commande.setPrixAvant(prixAvant);
-		
-		double prixApres=comService.getPrixTotalApresRemise(this.commande);		
-		this.commande.setPrixApres(prixApres);
-		
-		this.commande = comService.updateCommande(this.commande, clientDefaut);
-		maSession.setAttribute("com", this.commande);
-		return "validationPanier";
-		
-
-	}
 	
 	public String ajouterClient(){
 		Client cOut = clientService.addClient(this.client);
