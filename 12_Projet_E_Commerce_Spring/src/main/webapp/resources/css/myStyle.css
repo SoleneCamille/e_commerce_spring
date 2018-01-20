@@ -20,3 +20,9 @@ body{
 	margin : 300px;
 	padding-bottom :10px;
 }
+
+.texte {
+	background-color : azure;
+	border-style : groove;
+	border-color : azure;
+}

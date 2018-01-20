@@ -8,7 +8,8 @@
 
 <h:head>
 	<title>Produits d'une catégorie</title>
-		<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	<link rel="shortcut icon" type="image/x-icon"
+		href="resources/images/favicon.ico" />
 	<h:outputStylesheet library="css" name="myStyle.css" />
 </h:head>
 
@@ -19,50 +20,43 @@
 		<ui:include src="/templates/headerAccueil.xhtml"></ui:include>
 	</ui:insert>
 
+	<h:form>
+		<div class="ui-g" style="margin-left: 120px; margin-right: 120px">
+			<div class="ui-g-20 ui-md-20 ui-g-nopad">
+				<div class="ui-g-20 ui-g-nopad">
 
-	<h:form id="form">
-		<p:dataGrid var="pdt" value="#{sessionScope.listeProduits}"
-			columns="2" layout="grid" rows="16" paginator="true"
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					<div class="ui-g">
+						<ui:repeat var="pdt" value="#{sessionScope.listeProduits}">
+							<div style="width: 325px; margin-right:20px; margin-bottom:20px">
+								<p:panel header="#{pdt.idProduit}"
+									style="text-align:center; background-color: rgba(56, 158, 255, 0.2)">
+									<h:panelGrid columns="1" columnClasses="logo,detail">
 
-			<f:facet name="header">
-           Produits
-        </f:facet>
+										<h:graphicImage value="#{pdt.image}" style="width:250px" />
 
-			<p:panel header="#{pdt.idProduit}" style="text-align:center">
-				<h:panelGrid columns="2" style="width:300px"
-					columnClasses="logo,detail">
 
-					<h:graphicImage value="#{pdt.image}" />
+										<div style="background-color: azure">
+											Nom: #{pdt.designation} <br /> Description:
+											#{pdt.description} <br /> Prix: #{pdt.prix} <br /> Remise:
+											#{pdt.remise} <br /> Stock: #{pdt.quantite}
+										</div>
 
-					<p:outputPanel>
-						<h:panelGrid columns="2" cellpadding="2">
-							<h:outputText value="Nom:" />
-							<h:outputText value="#{pdt.designation}"
-								style="font-weight: bold" />
-							<h:outputText value="Description:" />
-							<h:outputText value="#{pdt.description}"
-								style="font-weight: bold" />
 
-							<h:outputText value="Prix:" />
-							<h:outputText value="#{pdt.prix}" style="font-weight: bold" />
-							<h:outputText value="Remise:" />
-							<h:outputText value="#{pdt.remise}" style="font-weight: bold" />
-							<h:outputText value="Stock:" />
-							<h:outputText value="#{pdt.quantite}" style="font-weight: bold" />
-							
-							<p:commandButton value="Ajouter au panier"
-								action="#{lMB.ajouterLigne}">
-								<f:setPropertyActionListener value="#{pdt}"
-									target="#{lMB.produit}" />
-							</p:commandButton>
-						</h:panelGrid>
-					</p:outputPanel>
-				</h:panelGrid>
-			</p:panel>
-		</p:dataGrid>
+										<p:commandButton value="Ajouter au panier"
+											action="#{lMB.ajouterLigne}">
+											<f:setPropertyActionListener value="#{pdt}"
+												target="#{lMB.produit}" />
+										</p:commandButton>
+									</h:panelGrid>
+								</p:panel>
+							</div>
+						</ui:repeat>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
 	</h:form>
-
-
 </h:body>
 </html>

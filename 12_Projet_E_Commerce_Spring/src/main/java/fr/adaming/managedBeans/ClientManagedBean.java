@@ -17,9 +17,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -35,16 +33,10 @@ import com.sun.mail.smtp.SMTPTransport;
 
 import org.apache.commons.codec.binary.Base64;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
-import com.lowagie.text.pdf.TextField;
 
-import fr.adaming.model.Administrateur;
+import com.lowagie.text.DocumentException;
+
+
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
@@ -55,7 +47,6 @@ import fr.adaming.service.IClientService;
 import fr.adaming.service.ICommandeService;
 import fr.adaming.service.ILignesCommandeService;
 import fr.adaming.service.IProduitService;
-import fr.adaming.service.LignesCommandeServiceImpl;
 
 @ManagedBean(name = "clientMB")
 @ViewScoped
@@ -441,22 +432,5 @@ public class ClientManagedBean implements Serializable {
 	public String seDeconnecter() {	
 		return "accueil";
 	}
-	
-	public void pdfOpt(Object document) {
-        Document pdf = (Document) document;
-        pdf.open();
-        Commande comm = (Commande) maSession.getAttribute("commande");
-        
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        
-        String msg = externalContext.getRealPath("Commande N°"+comm.getIdCommande());
-        
-        String prix = "Prix total avant remise : "+comm.getPrixAvant();
-        String prixApres = "Prix total apres remise : "+comm.getPrixApres();
-       
-         
-        pdf.add(TextField("prix"));
-        
-    }
 
 }

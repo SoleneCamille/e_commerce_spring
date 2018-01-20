@@ -21,41 +21,41 @@
 		<ui:include src="/templates/headerAccueil.xhtml"></ui:include>
 	</ui:insert>
 
+	<h:form>
+		<div class="ui-g" style="margin-left:120px; margin-right:120px">
+			<div class="ui-g-20 ui-md-20 ui-g-nopad">
+				<div class="ui-g-20 ui-g-nopad">
 
-	<h:form id="form">
-		<p:dataGrid var="cat" value="#{sessionScope.categoriesList}"
-			columns="1" layout="grid" rows="25" paginator="true"
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					<div class="ui-g">
+						<ui:repeat var="cat" value="#{sessionScope.categoriesList}">
+							<div style="width: 325px; margin-right:20px; margin-bottom:20px">
+								<p:panel header="#{cat.idCategorie}"
+									style="text-align:center; background-color: rgba(56, 158, 255, 0.2)">
+									<h:panelGrid columns="1" columnClasses="logo,detail">
+
+										<h:commandLink action="#{clientMB.consulterCategorie}">
+											<div style="width:290px; height:250px">
+												<h:graphicImage value="#{cat.image}" style="width:250px" />
+												<f:setPropertyActionListener value="#{cat}"
+													target="#{clientMB.categorie}" />
+											</div>
+										</h:commandLink>
 
 
-			<p:panel header="#{cat.idCategorie}" style="text-align:center">
-				<h:panelGrid columns="2" style="width:300px"
-					columnClasses="logo,detail">
+										<div style="background-color: azure">
+											Nom: #{cat.nomCategorie} <br /> Description:
+											#{cat.description}
+										</div>
+									</h:panelGrid>
+								</p:panel>
+							</div>
+						</ui:repeat>
+					</div>
 
+				</div>
+			</div>
+		</div>
 
-					<h:commandLink action="#{clientMB.consulterCategorie}">
-
-						<h:graphicImage value="#{cat.image}" />
-						<f:setPropertyActionListener value="#{cat}"
-							target="#{clientMB.categorie}" />
-					</h:commandLink>
-
-					<p:outputPanel>
-						<h:panelGrid columns="2" cellpadding="2">
-							<h:outputText value="Nom:" />
-							<h:outputText value="#{cat.nomCategorie}"
-								style="font-weight: bold" />
-
-							<h:outputText value="Description:" />
-							<h:outputText value="#{cat.description}"
-								style="font-weight: bold" />
-						</h:panelGrid>
-					</p:outputPanel>
-				</h:panelGrid>
-			</p:panel>
-		</p:dataGrid>
 	</h:form>
-
-
 </h:body>
 </html>
