@@ -1,8 +1,12 @@
 package fr.adaming.managedBeans;
 
+import java.awt.Color;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 //import java.io.FileOutputStream;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,14 +32,24 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpSession;
+import javax.swing.border.TitledBorder;
+import javax.swing.text.Style;
+import javax.swing.text.StyledEditorKit.FontFamilyAction;
 
 import com.sun.mail.smtp.SMTPTransport;
 
 import org.apache.commons.codec.binary.Base64;
 
-
+import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
-
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.Image;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Client;
@@ -187,8 +201,9 @@ public class ClientManagedBean implements Serializable {
 
 			// ajout de la liste de produits dans la session
 			maSession.setAttribute("listeProduits", this.listeProduit);
-			
-			//ajout de la catégorie dans la session (pour la recherche de produits par la barre de recherche
+
+			// ajout de la catégorie dans la session (pour la recherche de
+			// produits par la barre de recherche
 			maSession.setAttribute("categorie", this.categorie);
 
 		} else {
@@ -234,98 +249,118 @@ public class ClientManagedBean implements Serializable {
 		return "recapCommandes";
 	}
 
-	public void envoiMail() throws AddressException, MessagingException, FileNotFoundException, DocumentException {
+	@SuppressWarnings("unchecked")
+	public void envoiMail()
+			throws AddressException, MessagingException, DocumentException, MalformedURLException, IOException {
 		// création pdf
-		//
+		this.listeLignes = (List<LignesCommande>) maSession.getAttribute("lignesListe");
+		this.commande = (Commande) maSession.getAttribute("commande");
+		this.client = (Client) maSession.getAttribute("client");
 		// /* Create a new Document object */
-		// Document document = new Document();
+		Document document = new Document();
 		//
-		// try {
-		// /* Associate the document with a PDF writer and an output stream */
-		// PdfWriter.getInstance(document, new
-		// FileOutputStream("C:\\Users\\inti-0257\\Desktop\\formation\\Commande.pdf"));
-		//
-		// /* Open the document (ready to add items) */
-		// document.open();
-		//
-		// /* Populate the document (add items to it) */
-		//// Commande comDefaut = new Commande();
-		//
-		// System.out.println("###################");
-		// List<LignesCommande> liste=ligneService.getAllLignes(23);
-		//
-		// document.add(new Paragraph("Récapitulatif de votre commande"));
-		//
-		//
-		// PdfPTable table = new PdfPTable(5);
-		////
-		//// //On créer l'objet cellule.
-		// PdfPCell cell;
-		////
-		// cell = new PdfPCell(new Phrase("Liste des produits commandés"));
-		// cell.setColspan(5);
-		// table.addCell(cell);
-		//
-		// table.addCell("nom du produit");
-		// table.addCell("quantité");
-		// table.addCell("prix avant remise");
-		// table.addCell("remise");
-		// table.addCell("prix après remise");
-		//
-		//
-		// // cell = new PdfPCell(new Phrase("Fusion de 2 cellules de la
-		// première colonne"));
-		// //cell.setRowspan(3);
-		// //table.addCell(cell);
-		//
-		//// //contenu du tableau.
-		// System.out.println("###################");
-		//
-		// for(int i=0;i<liste.size();i++){
-		// //System.out.println(liste.get(0).getProduit().getDesignation());
-		// table.addCell(liste.get(i).getProduit().getDesignation());
-		// table.addCell(Integer.toString(liste.get(i).getQuantite()));
-		// table.addCell(Double.toString(liste.get(i).getPrixAvantRemise()));
-		// table.addCell(Double.toString(liste.get(i).getProduit().getRemise()));
-		// table.addCell(Double.toString(liste.get(i).getPrix()));}
-		//
-		// document.add(table);
-		//
-		//
-		//
-		// PdfPTable table2 = new PdfPTable(2);
-		//
-		//
-		// cell = new PdfPCell(new Phrase("Montant total"));
-		// cell.setColspan(2);
-		// table2.addCell(cell);
-		//
-		// table2.addCell("prix total avant remise");
-		// table2.addCell("prix total après remise");
-		//
-		//// table.addCell(Double.toString(this.commande.getPrixAvant()));
-		//// table.addCell(Double.toString(this.commande.getPrixApres()));
-		//
-		// document.add(table2);
-		//
-		// System.out.println("pdf cree");
-		// }
-		// catch(DocumentException e) {
-		// /* Oups */
-		// System.err.println(e);
-		// }
-		// finally {
-		// /* Don't forget to close the document! */
-		// document.close();
-		//
-		// }
+		try {
+			/* Associate the document with a PDF writer and an output stream */
+			PdfWriter.getInstance(document,
+					new FileOutputStream("C:\\Users\\inti-0257\\Desktop\\formation\\Commande_WinterIsComing.pdf"));
+
+			/* Open the document (ready to add items) */
+			document.open();
+			Font font = new Font(Font.HELVETICA, 14, Font.BOLD, Color.BLUE);
+			/* Populate the document (add items to it) */
+			Image image = Image.getInstance("C:\\Users\\inti-0257\\Desktop\\icone_pdf.jpg");
+			// document.add(new Paragraph("test\n test"));
+			document.add(image);
+			document.add(new Paragraph(" "));
+			document.add(new Paragraph("N° de client : " + this.client.getIdClient()));
+			document.add(new Paragraph("Nom : " + this.client.getNomClient()));
+			document.add(new Paragraph("E-mail : " + this.client.getEmail()));
+			document.add(new Paragraph("Adresse de livraison : " + this.client.getAdresse()));
+			document.add(new Paragraph("N° de téléphone : " + this.client.getTel()));
+
+			document.add(new Paragraph(" "));
+
+			Paragraph para = new Paragraph("Récapitulatif de votre commande \n Winter is Coming", font);
+			para.setAlignment(Element.ALIGN_CENTER);
+			document.add(para);
+
+			document.add(new Paragraph(" "));
+			//
+			//
+			PdfPTable table = new PdfPTable(5);
+			////
+			//// //On créer l'objet cellule.
+			PdfPCell cell;
+			////
+			Font font2 = new Font(Font.HELVETICA, 13, Font.BOLD, Color.BLACK);
+			Phrase phrase = new Phrase("Liste des produits commandés", font2);
+
+			cell = new PdfPCell(phrase);
+			cell.setColspan(5);
+			table.addCell(cell);
+			//
+			table.addCell("nom du produit");
+			table.addCell("quantité");
+			table.addCell("prix avant remise");
+			table.addCell("remise");
+			table.addCell("prix après remise");
+			//
+			//
+			// // cell = new PdfPCell(new Phrase("Fusion de 2 cellules de la
+			// première colonne"));
+			// //cell.setRowspan(3);
+			// //table.addCell(cell);
+			//
+			//// //contenu du tableau.
+			System.out.println("###################");
+			//
+			for (int i = 0; i < this.listeLignes.size(); i++) {
+				// System.out.println(this.listeLignes.get(0).getProduit().getDesignation());
+				table.addCell(this.listeLignes.get(i).getProduit().getDesignation());
+				table.addCell(Integer.toString(this.listeLignes.get(i).getQuantite()));
+				table.addCell(Double.toString(this.listeLignes.get(i).getPrixAvantRemise()));
+				table.addCell(Double.toString(this.listeLignes.get(i).getProduit().getRemise()));
+				table.addCell(Double.toString(this.listeLignes.get(i).getPrix()));
+			}
+			//
+			document.add(table);
+			//
+			//
+			document.add(new Paragraph(" "));
+			document.add(new Paragraph(" "));
+
+			PdfPTable table2 = new PdfPTable(2);
+			//
+
+			phrase = new Phrase("Montant total", font2);
+			cell = new PdfPCell(phrase);
+			cell.setColspan(2);
+			table2.addCell(cell);
+			//
+			table2.addCell("prix total avant remise");
+			table2.addCell("prix total après remise");
+			System.out.println(this.commande.getPrixAvant());
+			table2.addCell(Double.toString(this.commande.getPrixAvant()));
+			table2.addCell(Double.toString(this.commande.getPrixApres()));
+			//
+			document.add(table2);
+			//
+			System.out.println("pdf cree");
+		} catch (DocumentException e) {
+			// /* Oups */
+			System.err.println(e);
+		} finally {
+			// /* Don't forget to close the document! */
+			document.close();
+			//
+		}
 		//
 
 		// Envoi du mail contenant le pdf
-		System.out.println("############test mail#############");
-		this.client=(Client) maSession.getAttribute("client");
+		// System.out.println("############test mail#############");
+
 		System.out.println(this.client.getEmail());
-		
+
 		Properties props = System.getProperties();
 		props.put("mail.smtps.host", "smtp.gmail.com");
 		props.put("mail.smtps.auth", "true");
@@ -344,7 +379,7 @@ public class ClientManagedBean implements Serializable {
 		multipart.addBodyPart(messageBodyPart);
 
 		messageBodyPart = new MimeBodyPart();
-		DataSource source = new FileDataSource("C:\\Users\\inti-0257\\Downloads\\Commande.pdf");
+		DataSource source = new FileDataSource("C:\\Users\\inti-0257\\Desktop\\formation\\Commande_WinterIsComing.pdf");
 		messageBodyPart.setDataHandler(new DataHandler(source));
 		messageBodyPart.setFileName("commande.pdf");
 		multipart.addBodyPart(messageBodyPart);
@@ -434,10 +469,10 @@ public class ClientManagedBean implements Serializable {
 		return "detailCommande";
 	}
 
-	public String seDeconnecter() {	
+	public String seDeconnecter() {
 		return "accueil";
 	}
-	
+
 	public void rechercher() {
 		System.out.println("----------------------------------------- Coucou");
 	}

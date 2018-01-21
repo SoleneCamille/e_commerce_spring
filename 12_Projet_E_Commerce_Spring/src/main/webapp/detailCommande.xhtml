@@ -38,7 +38,7 @@
 			<f:facet name="{Exporters}">
 				<h:commandLink>
 					<p:graphicImage value="resources/images/pdf.png" width="24" />
-					<p:dataExporter type="pdf" target="tbl" fileName="Commande"/>
+					<p:dataExporter type="pdf" target="tbl" fileName="Commande+#{sessionScope.commande.idCommande}"/>
 				</h:commandLink>
 			</f:facet>
 
