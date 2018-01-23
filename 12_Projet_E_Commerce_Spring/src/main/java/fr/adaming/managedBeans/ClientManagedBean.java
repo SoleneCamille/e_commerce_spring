@@ -280,7 +280,7 @@ public class ClientManagedBean implements Serializable {
 
 			document.add(new Paragraph(" "));
 
-			Paragraph para = new Paragraph("Récapitulatif de votre commande \n Winter is Coming", font);
+			Paragraph para = new Paragraph("Récapitulatif de votre commande \n Winter is Coming du "+this.commande.getDateCommande(), font);
 			para.setAlignment(Element.ALIGN_CENTER);
 			document.add(para);
 

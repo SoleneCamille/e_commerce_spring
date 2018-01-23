@@ -25,7 +25,7 @@ public class Commande implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_comm")
 	private int idCommande;
-	private Date dateCommande;
+	private String dateCommande;
 	private double prixAvant;
 	private double prixApres;
 	// transformation UML en java
@@ -41,7 +41,7 @@ public class Commande implements Serializable {
 		super();
 	}
 
-	public Commande(Date dateCommande, double prixAvant, double prixApres) {
+	public Commande(String dateCommande, double prixAvant, double prixApres) {
 		super();
 		this.dateCommande = dateCommande;
 		this.prixAvant = prixAvant;
@@ -55,7 +55,7 @@ public class Commande implements Serializable {
 		this.prixApres = prixApres;
 	}
 
-	public Commande(int idCommande, Date dateCommande, double prixAvant, double prixApres) {
+	public Commande(int idCommande, String dateCommande, double prixAvant, double prixApres) {
 		super();
 		this.idCommande = idCommande;
 		this.dateCommande = dateCommande;
@@ -73,11 +73,11 @@ public class Commande implements Serializable {
 		this.idCommande = idCommande;
 	}
 
-	public Date getDateCommande() {
+	public String getDateCommande() {
 		return dateCommande;
 	}
 
-	public void setDateCommande(Date dateCommande) {
+	public void setDateCommande(String dateCommande) {
 		this.dateCommande = dateCommande;
 	}
 
