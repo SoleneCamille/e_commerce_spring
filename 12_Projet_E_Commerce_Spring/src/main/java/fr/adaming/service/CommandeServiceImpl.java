@@ -40,8 +40,10 @@ public class CommandeServiceImpl implements ICommandeService {
 	public Commande addCommande(Commande comm, Client client) {
 		Client cOut = clientDao.getClientById(client);
 		comm.setClient(cOut);
-		String date = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-		comm.setDateCommande(date);
+		Date actuelle = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String dat = dateFormat.format(actuelle);
+		comm.setDateCommande(dat);
 		return commandeDao.addCommande(comm);
 	}
 
@@ -49,10 +51,11 @@ public class CommandeServiceImpl implements ICommandeService {
 	public Commande updateCommande(Commande comm, Client client) {
 		Client cOut = clientDao.getClientById(client);
 		comm.setClient(cOut);
-		//String date = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		// String date =
+		// LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		Date actuelle = new Date();
-		 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		 String dat = dateFormat.format(actuelle);
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String dat = dateFormat.format(actuelle);
 		comm.setDateCommande(dat);
 		return commandeDao.updateCommande(comm);
 	}
