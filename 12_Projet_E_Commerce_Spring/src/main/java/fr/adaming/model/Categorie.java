@@ -30,7 +30,7 @@ public class Categorie implements Serializable {
 	@Transient
 	private String image;
 
-	@OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Produit> listeProduits;
 
 	public Categorie() {
