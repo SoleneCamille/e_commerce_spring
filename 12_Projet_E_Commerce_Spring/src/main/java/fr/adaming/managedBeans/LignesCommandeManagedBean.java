@@ -125,9 +125,16 @@ public class LignesCommandeManagedBean implements Serializable {
 		this.comService = comService;
 	}
 
+	static public double arrondir(double value, int n) { 
+		double r = (Math.round(value * Math.pow(10, n))) / (Math.pow(10, n)); 
+		return r; 
+		} 
+	
 	// methodes
 	public String ajouterLigne() {
 
+		
+		
 		// récupérer la commande par défaut
 		Commande comDefaut = new Commande();
 		comDefaut.setIdCommande(1);
@@ -148,10 +155,10 @@ public class LignesCommandeManagedBean implements Serializable {
 			// calcul des nouveaux prix totaux pour cette ligne
 
 			double prix = (this.ligne.getPrix() / quantite) * (quantite + 1);
-
-			this.ligne.setPrix(prix);
+			
+			this.ligne.setPrix(arrondir(prix,2));
 			double prixAvantRemise = (this.produit.getPrix() * (quantite + 1));
-			this.ligne.setPrixAvantRemise(prixAvantRemise);
+			this.ligne.setPrixAvantRemise(arrondir(prixAvantRemise,2));
 
 			// modification de la ligne dans la base de données
 			ligneService.updateLigne(this.ligne, comDefaut, this.produit);
@@ -168,11 +175,11 @@ public class LignesCommandeManagedBean implements Serializable {
 
 		// mise à jour du prix avant remise
 		double prixAvant = comService.getPrixTotalAvantRemise(comDefaut);
-		comDefaut.setPrixAvant(prixAvant);
+		comDefaut.setPrixAvant(arrondir(prixAvant,2));
 
 		// mise à jour du prix après remise
 		double prixApres = comService.getPrixTotalApresRemise(comDefaut);
-		comDefaut.setPrixApres(prixApres);
+		comDefaut.setPrixApres(arrondir(prixApres,2));
 
 		// mise à jour de la commande dans la BD
 		comDefaut = comService.updateCommande(comDefaut, clientDefaut);

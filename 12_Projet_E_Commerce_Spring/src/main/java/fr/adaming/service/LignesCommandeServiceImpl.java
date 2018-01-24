@@ -31,12 +31,15 @@ public class LignesCommandeServiceImpl implements ILignesCommandeService {
 	public List<LignesCommande> getAllLignes(int idCommande) {
 		return ligneDao.getAllLignes(idCommande);
 	}
-
+	
+	static public double arrondir(double value, int n) { 
+		double r = (Math.round(value * Math.pow(10, n))) / (Math.pow(10, n)); 
+		return r; 
+		} 
+	
 	@Override
 	public LignesCommande addLigne(LignesCommande ligne, Commande comm, Produit p) {
 		
-		DecimalFormat f = new DecimalFormat();
-		f.setMaximumFractionDigits(2);
 		
 		Produit pOut = produitDao.getProduitbyIdorName(p);
 		pOut.setSelectionne(true);
@@ -46,9 +49,9 @@ public class LignesCommandeServiceImpl implements ILignesCommandeService {
 		ligne.setCommande(cOut);
 		ligne.setQuantite(1);
 		double prixTotal = p.getPrix() - (p.getPrix() * (p.getRemise() / 100));
-		//ligne.setPrix(Double.parseDouble(f.format(prixTotal)));
-		ligne.setPrix(prixTotal);
-		ligne.setPrixAvantRemise(p.getPrix());
+		
+		ligne.setPrix(arrondir(prixTotal,2));
+		ligne.setPrixAvantRemise(arrondir(p.getPrix(),2));
 
 		return ligneDao.addLigne(ligne);
 	}
@@ -62,8 +65,8 @@ public class LignesCommandeServiceImpl implements ILignesCommandeService {
 		ligne.setCommande(cOut);
 
 		double prixTotal = ligne.getQuantite() * (p.getPrix() - (p.getPrix() * (p.getRemise() / 100)));
-		ligne.setPrix(prixTotal);
-		ligne.setPrixAvantRemise(p.getPrix() * ligne.getQuantite());
+		ligne.setPrix(arrondir(prixTotal,2));
+		ligne.setPrixAvantRemise(arrondir((p.getPrix() * ligne.getQuantite()),2));
 
 		return ligneDao.updateLigne(ligne);
 	}

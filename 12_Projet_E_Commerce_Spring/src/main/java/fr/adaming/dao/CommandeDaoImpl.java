@@ -108,6 +108,11 @@ public class CommandeDaoImpl implements ICommandeDao {
 		return (Commande) s.get(Commande.class, comm.getIdCommande());
 	}
 
+	static public double arrondir(double value, int n) {
+		double r = (Math.round(value * Math.pow(10, n))) / (Math.pow(10, n));
+		return r;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public double getPrixTotalAvantRemise(Commande com) {
@@ -130,7 +135,7 @@ public class CommandeDaoImpl implements ICommandeDao {
 			somme = somme + prixAvant;
 		}
 
-		return somme;
+		return arrondir(somme, 2);
 
 	}
 
@@ -153,7 +158,7 @@ public class CommandeDaoImpl implements ICommandeDao {
 			somme = somme + prixApres;
 		}
 
-		return somme;
+		return arrondir(somme, 2);
 
 	}
 
