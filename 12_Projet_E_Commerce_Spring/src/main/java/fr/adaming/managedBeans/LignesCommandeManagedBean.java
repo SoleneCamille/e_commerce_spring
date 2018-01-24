@@ -2,6 +2,9 @@ package fr.adaming.managedBeans;
 
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -143,7 +146,9 @@ public class LignesCommandeManagedBean implements Serializable {
 			this.ligne.setQuantite(quantite + 1);
 
 			// calcul des nouveaux prix totaux pour cette ligne
+
 			double prix = (this.ligne.getPrix() / quantite) * (quantite + 1);
+
 			this.ligne.setPrix(prix);
 			double prixAvantRemise = (this.produit.getPrix() * (quantite + 1));
 			this.ligne.setPrixAvantRemise(prixAvantRemise);
@@ -169,9 +174,6 @@ public class LignesCommandeManagedBean implements Serializable {
 		double prixApres = comService.getPrixTotalApresRemise(comDefaut);
 		comDefaut.setPrixApres(prixApres);
 
-		// insertion de la date du jour dans la commande
-		String date = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-		comDefaut.setDateCommande(date);
 		// mise à jour de la commande dans la BD
 		comDefaut = comService.updateCommande(comDefaut, clientDefaut);
 
@@ -348,5 +350,4 @@ public class LignesCommandeManagedBean implements Serializable {
 		return "panier";
 	}
 
-	
 }

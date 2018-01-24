@@ -246,6 +246,7 @@ public class ClientManagedBean implements Serializable {
 		}
 
 		maSession.setAttribute("comListe", commOut);
+		maSession.setAttribute("client", cOut);
 		return "recapCommandes";
 	}
 
