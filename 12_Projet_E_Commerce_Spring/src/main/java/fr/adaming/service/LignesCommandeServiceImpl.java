@@ -1,5 +1,6 @@
 package fr.adaming.service;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class LignesCommandeServiceImpl implements ILignesCommandeService {
 
 	@Override
 	public LignesCommande addLigne(LignesCommande ligne, Commande comm, Produit p) {
+		
+		DecimalFormat f = new DecimalFormat();
+		f.setMaximumFractionDigits(2);
+		
 		Produit pOut = produitDao.getProduitbyIdorName(p);
 		pOut.setSelectionne(true);
 
@@ -41,6 +46,7 @@ public class LignesCommandeServiceImpl implements ILignesCommandeService {
 		ligne.setCommande(cOut);
 		ligne.setQuantite(1);
 		double prixTotal = p.getPrix() - (p.getPrix() * (p.getRemise() / 100));
+		//ligne.setPrix(Double.parseDouble(f.format(prixTotal)));
 		ligne.setPrix(prixTotal);
 		ligne.setPrixAvantRemise(p.getPrix());
 
